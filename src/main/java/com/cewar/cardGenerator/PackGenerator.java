@@ -425,12 +425,4 @@ public class PackGenerator {
         }
     }
 
-    // /**
-    //  * Helper method to exclude special cards that should not be offered in packs
-    //  */
-    // private static void excludeFunctionalCards(ArrayList<Card> arr) {
-    //     Filter packFilter = new Filter(true);
-    //     packFilter.addFilter(Type.OTHER);
-    //     arr.removeIf(packFilter);
-    // }
 }

@@ -49,6 +49,8 @@ public class AdminController {
     /**
      * I forget what this does.
      * 
+     * TODO make a way to add cards to a user's inventory
+     * 
      * @param entityType
      * @return
      */

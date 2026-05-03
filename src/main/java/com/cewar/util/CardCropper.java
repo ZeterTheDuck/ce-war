@@ -77,7 +77,7 @@ public class CardCropper {
     /**
      * Helper method to actually crop the cards themselves.
      * 
-     * Card Selection, from top left:
+     * <p> Card Selection, from top left:
      * (11,77) (exclusive) to (409,264) (inclusive)
      * 
      * @param src - Source image

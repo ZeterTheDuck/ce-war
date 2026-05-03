@@ -218,7 +218,6 @@ public class Card {
 
     /**
      * Generates a detailed string representation of this card.
-     * @return
      */
     public String cardDetails() {
         StringBuilder output = new StringBuilder();

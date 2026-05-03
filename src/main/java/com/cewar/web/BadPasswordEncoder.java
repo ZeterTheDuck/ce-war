@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  *      Numeric (0-9)
  *      !@#$%^&*() (Numbers but with the shift key held down)
  * 
- * @deprecated
+ * @deprecated changed to use Bcrypt Encoding
  */
 public class BadPasswordEncoder {
     // Starting String. Not really important.

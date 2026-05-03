@@ -3,24 +3,16 @@ package com.cewar.web.userdetails;
 import org.springframework.security.core.GrantedAuthority;
 
 public enum Authority implements GrantedAuthority {
-    /**
-     * Cannot do anything. For visitors that are not logged in. Only exists as to fulfill Spring's non-null contract.
-     */
+    /** Cannot do anything. For visitors that are not logged in. Only exists as to fulfill Spring's non-null contract. */
     NONE("ROLE_NONE"),      // NONE: 
 
-    /**
-     * Can access login-blocked areas, like starting a game, and read other users' game stats
-     */
+    /** Can access login-blocked areas, like starting a game, and read other users' game stats */
     USER("ROLE_USER"),      // READ: Can access login-blocked areas, like starting a game, and read other users' game stats
 
-    /**
-     * Can add infinite cards to their inventory without having to spend points. Useful for players transferring over
-     */
+    /** Can add infinite cards to their inventory without having to spend points. Useful for players transferring over. */
     WRITE("ROLE_WRITE"),    // WRITE: Can add infinite cards to their inventory without having to spend points. Useful for players transferring over
 
-    /**
-     * Can manage other users and write to other users, as well as delete them
-     */
+    /** Can manage other users and write to other users, as well as delete them */
     ADMIN("ROLE_ADMIN");
 
     private final String role;
