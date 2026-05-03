@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<!-- Page about rules.
+    Mapped by the subdirectory "/rules" -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <title>CE War - Rules</title>
+        <link rel="stylesheet" type="text/css" th:href="@{style.css}">
+        <link rel="icon" type="image/png" th:href="@{images/logo.png}">
+    </head>
+    <body>
+        <!-- Replace this item with the container located at fragments/header with the tag "th:fragment="header"" -->
+        <div th:replace="~{fragments/header :: header}"/>
+
+        <div id="rules-text">
+            <h1>Rules</h1>
+
+            <p>All rules here are deemed absolute, and card effects cannot contradict them, unless they specifically say so.</p>
+
+            <div id="rules-game-setup">
+                <h2>Game Setup</h2>
+
+                <h3>The Board</h3>
+
+                <p>There is a board of maximum size 8x8. The field size is the total amount of spaces, including gaps. Both players must decide
+                    on the layout of the board, but in consecutive games the loser picks.</p>
+                
+                <p>Typically, board sizes are small, such as 3 tiles wide and 4 tiles long.</p>
+
+                <p><span th:replace="~{fragments/symbol :: card-symbol(back-slot,action)}"/> is defined by the number of spaces on either player's back row.</p>
+                
+                <p>Both players have a deck, 3 face up draw cards, action slots equal to <span th:replace="~{fragments/symbol :: card-symbol(back-slot,action)}"/>
+                    +1, a graveyard, a God Card and a dump pile. Each player shuffles their deck and draws 5 cards. You can have a max 10 
+                    non-material cards in your hand. If you have more than 10, at your End phase you must discard cards until you have 10 or less.</p>
+                
+                <p>God Cards are essentially each player's "HP" and are not shuffled in the deck. They are played at the start of the game. A player can only have one God Card.</p>
+
+                <p>When creatures move forward, it is towards their owner's opponent. Backwards is towards their owner.</p>
+
+                <p>Some cards may refer to a player's "side of the field" or "territory". This is the half of the field that is closest to them. If the field length is odd, the middle 
+                    row is both players' territory.</p>
+
+                <h3>Gaps</h3>
+
+                <p>Gaps are empty spaces in the field. They resemble a ravine, pit, or some other sort of obstacle.</p>
+
+                <p>Buildings cannot be built on gaps, nor can creatures move onto gaps, unless they have the afloat attribute.</p>
+
+                <p>The max amount of gaps is the length of a players' side times two. Gap placement should look the same from both player's perspectives.</p>
+
+                <p>If a building is on top of a gap and is destroyed, destroy any creatures on that building that do not have the afloat attribute.</p>
+
+                <p>If a creature can move more than one space, it can move "over" gaps.</p>
+
+                <h3>The Deck</h3>
+
+                <p>A deck has 50-70 cards. The amount of materials are limitless, but other cards are limited to 5, unless said otherwise in 
+                    official documents or in the card effect.</p>
+
+                <p>If a card says "draw 1 card" you can take only one card from the top three face-up drawing slots or <strong>one</strong> from your deck. 
+                    If you draw multiple cards, do that thing multiple times. Keep in mind that face-up cards don't replenish until the end phase.</p>
+                
+                <p>A card's "location" refers to what pile it is: Dump, Graveyard, Hand, Deck, Draw Slots, Field. The "position" refers to its position on the field. 
+                    God cards and Actions in Action slots are not considered to be on the field.</p>
+
+                <p>When searching your deck for a card by card effect, you must show the card you choose to your opponent, for verification and for balancing. 
+                    Shuffle your deck afterwards. Shuffling the deck does not mean that you shuffle the face-up draw slot cards. You can also take a face-up draw 
+                    card when you search your deck, but still shuffle the deck and don't replace the card you took.</p>
+
+            </div>
+
+            <div id="rules-card-layout">
+                <h2>Card Layout</h2>
+
+                <p>Creatures and building's bottom numbers: The bottom right is HP and the bottom left is AP/size. The building card goes in the middle of the space 
+                    if more than 1x1. The Directional attribute means it must be positioned in a specific way: This 1 is horizontal →1x2←This 2 is vertical.</p>
+
+                <p>Building Materials (material list): the materials specify what material cards you must discard in order to play the building card. Typically, they 
+                    have a list of specific cards. "1 Earth", for example, means you must discard an Earth card. While a Multi-Material card can be used as any material, 
+                    some cards call for a Multi-Material card specifically. Additionally, sometimes cards just ask for "1 Any", meaning any material can be used.</p>
+
+                <p>Effects with no counter tier cannot be activated in response to another card's effect. As a rule of thumb, if it doesn't say what counter level, it's 
+                    level 0. Tiered cards can counter a card with the same tier or lower (example: <span th:replace="~{fragments/symbol :: card-symbol(c2,action)}"/> cards can activate 
+                    in response to <span th:replace="~{fragments/symbol :: card-symbol(c1,action)}"/> but not the other way around)</p>
+                
+                <p>Cards that their base HP is 0 does not destroy the card, but when that card is attacked, it is destroyed, even by a creature with 0 AP.</p>
+
+                <p>God Cards are special. They do not have a rarity, and only have HP.</p>
+
+                <h3>Attributes</h3>
+
+                <p>Different cards have attributes, listed before their effects or flavor text. In 1st Edition, cards would apply to effects based on the first word in their name or if 
+                    they were on a list. In 2nd Edition, they are identified by their attributes.</p>
+
+                <p>All cards have archetypes, such as Feathery or Buggle. These typically categorize cards that work together with special synergies. The "Staple" archetype is for cards that 
+                    may not have an archetype, or do not explicitly have effects that affect with own archetype.</p>
+
+                <p>Attributes, however, are used for game balancing and clarity. Some represent effects not listed. Below is a table explaining each one. Most cards have their attributes 
+                    in the same place but some might gain attributes based on effects. Attribute effects are treated as <span th:replace="~{fragments/symbol :: card-symbol(c3,action)}"/>.</p>
+
+                <table id="rules-attribute-table">
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Special Effect</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>Archetype</td>
+                        <td></td>
+                        <td>Used for Identification, all cards have at least 1. Archetypes go in alphabetical order, followed by Staple if applicable.</td>
+                    </tr>
+                    <tr>
+                        <td>Inferior</td>
+                        <td></td>
+                        <td>Used to identify weaker cards that are typically able to be played freely.</td>
+                    </tr>
+                    <tr>
+                        <td>Superior</td>
+                        <td></td>
+                        <td>Used to identify stronger cards that may require special conditions to play. Also used for cards with powerful effects that would be unfair if easily
+                            obtained through a generic deck search.</td>
+                    </tr>
+                    <tr>
+                        <td>Animated</td>
+                        <td>Card is treated as a creature.</td>
+                        <td>Used by non-Creature cards that are able to move.</td>
+                    </tr>
+                    <tr>
+                        <td>Anchored</td>
+                        <td>Card is treated as a building.</td>
+                        <td>Used by non-Building cards that are to be treated as a building. These cards may take up more than one space.</td>
+                    </tr>
+                    <tr>
+                        <td>Conjured</td>
+                        <td>Card is treated as an action.</td>
+                        <td>Used by non-Action cards that can be played in action slots, including upside-down, and can have a symbol by their name.</td>
+                    </tr>
+                    <tr>
+                        <td>Material</td>
+                        <td>Used for making buildings</td>
+                        <td>Used for brevity for listing building materials.</td>
+                    </tr>
+                    <tr>
+                        <td>Dependent</td>
+                        <td>Once per year, if not on a building with the same archetype as this card (excluding Staple), this card takes 100 damage.</td>
+                        <td>Widely used by the Aquatic archetype, which comprises of fish creatures.</td>
+                    </tr>
+                    <tr>
+                        <td>Impassable</td>
+                        <td>No creatures can travel on this card, nor be played off of it. Your creatures can attack this card.</td>
+                        <td>For wall-like buildings.</td>
+                    </tr>
+                    <tr>
+                        <td>Accessible</td>
+                        <td>Your opponent can move their creatures onto this card.</td>
+                        <td>For buildings like bridges or many Aquatic buildings.</td>
+                    </tr>
+                    <tr>
+                        <td>Directional</td>
+                        <td>This building must be placed a certain way: horizontal × vertical.</td>
+                        <td>For buildings that have specific rotations.</td>
+                    </tr>
+                    <tr>
+                        <td>Afloat</td>
+                        <td>This card can be played or moved onto gaps.</td>
+                        <td>For buildings that can be built on gaps and creatures that can move over gaps.</td>
+                    </tr>
+                    <tr>
+                        <td>Extra</td>
+                        <td>Is separate from the deck at the start of a game.</td>
+                        <td>Used for special gods, namely Gods, Replicas, and Gaps, that aren't supposed to be in a deck. They also typically have a gray card back.</td>
+                    </tr>
+                    <tr>
+                        <td>Immune</td>
+                        <td>Does not take damage from Poison counters.</td>
+                        <td>Often used by the Coded archetype.</td>
+                    </tr>
+                </table>
+
+                <p>Note: While Staple cards are treated as an archetype when packs are generated or when cards are created, it is not a functional archetype. For 
+                    instance, cards that can target a specific archetype, like Lizar Chameleon, can't target Staple cards.</p>
+
+                <p>Examples of when Animated, Anchored, and Conjured are used for cards:
+                    <ul>
+                        <li><strong>Animated</strong>: For buildings acting as creatures that require materials, or actions that act as a physic spell.</li>
+                        <li><strong>Anchored</strong>: For creatures not meant to move, but could attack. Also for actions that impact a constant space on the field.</li>
+                        <li><strong>Conjured</strong>: For actions that require materials, or creatures not meant to be on the field. Also could be for cards that could be placed 
+                            face-down as an action.</li>
+                    </ul>
+                </p>
+
+                <p>Actions can always be placed face-down, regardless of if they're animated, anchored, or not. Buildings are meant to be the only card that has a material
+                    list, which is the primary use for animated and conjured. Creatures don't really have a special characteristic, and are typically the overlap for these 
+                    special attributes.</p>
+
+                <p>When a card lets you use a card based on type, as in Creature, Building, Action, or Material, cards that are one kind but also animated, anchored, or conjured 
+                    count as both types.</p>
+
+                <h4>Effects of Type Attributes</h4>
+                <ul>
+                    <li>Animated
+                        <ul>
+                            <li>Have AP and HP</li>
+                            <li>Can move like other creatures</li>
+                            <li>Can attack like other creatures</li>
+                        </ul>
+                    </li>
+                    <li>Anchored
+                        <ul>
+                            <li>Have a size and HP</li>
+                            <li>Your creatures can be played off of these cards</li>
+                            <li>Not able to move</li>
+                            <li>If able to move, anchored creatures can still move onto other buildings, or be played on buildings</li>
+                        </ul>
+                    </li>
+                    <li>Conujured
+                        <ul>
+                            <li>Played in an open Action Slot, including face-down</li>
+                            <li>The material cost for conjured buildings is paid when the card gets activated, not when it is placed face-down (if applicable).
+                                You cannot activate a face-down conjured building if you do not have the materials.</li>
+                            <li>Like other regular actions, conjured cards can be canceled when first played</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            
+            <div id="rules-gameplay">
+
+                <div id="rules-phases">
+                    <h2>Gameplay Phases</h2>
+
+                    <p>For this section, "the player" refers to the player whose turn it is.</p>
+
+                    <p>During their turn, the player can activate counter-1 or higher actions from their hand, in response to a card effect</p>
+
+                    <h3>Draw Phase</h3>
+
+                    <p>The player can draw 2 face-down cards, or one face-up card from an available card draw slot.</p>
+
+                    <h3>Act 1 Phase</h3>
+
+                    <p>A year passes:
+                        <ol>
+                            <li>All eligible cards gain 1 Time counter</li>
+                            <li>Any non-immune cards with a poison counter take 100 damage for each poison counter</li>
+                            <li>Any dependent creatures not on a building of the same archetype take 100 damage</li>
+                        </ol>
+                    </p>
+
+                    <p>The player can activate card effects, including counter-0 effects, build buildings, and play creatures. 
+                        Buildings or creatures can only be played on that player's back row. Creatures can be played on buildings 
+                        you control, and if the field size is greater than 20, they can be played adjacent to the building. 
+                        Buildings can be built under creatures or adjacent to them regardless of field size.</p>
+
+                    <h3>Fight Phase</h3>
+
+                    <p>The player can move each creature they control 1 space, and if that card is adjacient to another creature, meaning it is within the 3x3 tile area around that card,
+                        they can choose to target a creature for an attack. HP is decreased by the other creature's AP. If the opposing creature's HP goes 0 or below, that card is sent 
+                        to the graveyard. Your creatures can also move into your own buildings. If a card doesn't have HP, it is considered infinite.</p>
+
+                    <p>A creature being attacked goes as follows:
+                        <ol>
+                            <li>The attack is declared</li>
+                            <li>The damage is dealt. HP can go negative, and if so the total extra damage, divided by 100, is counted as <em>overkill damage</em></li>
+                            <li>If a card's HP is at or below 0, after an attack, destroy it</li>
+                        </ol>
+                    </p>
+
+                    <p>Card effects can be activated inbetween these steps. For example, one could heal a card after step 2 and before step 3. Additionally, if an attack is negated 
+                        <em>after</em> step 1, the attacking creature cannot attack again</p>
+
+                    <p>God cards are treated as one "wide" creature on either players' back row. A creature on an opponent's back row can attack that opponent's God card.</p>
+
+                    <p>You can only attack your opponent's buildings if they are vacant or if you have a creature occupying them (in the case of cards with the accessible attribute).
+                        You cannot attack your own buildings.</p>
+
+                    <h3>Act 2 Phase</h3>
+
+                    <p>The player can activate card effects, but cannot play creatures, actions, or build buildings.</p>
+
+                    <h3>End Phase</h3>
+
+                    <p>The player replenishes any empty face-up card draw slots.</p>
+                </div>
+
+                <div id="rules-mechanics">
+                    <h2>Gameplay Mechanics</h2>
+                    
+                    <p>This section details different workings of the game in more detail to clarify how they work.</p>
+
+                    <h3>Playing Cards</h3>
+                    <p>Actions are played in one of the turn player's Action Slots. Stage actions perpetually remain unless destroyed.</p>
+
+                    <p>When buildings are played, or built, the player must discard the materials required for the building by moving them from their hand to the 
+                        graveyard in order to play it.</p>
+
+                    <p>Buildings and creatures can be played on your back row. Creatures can be played on buildings you control, and if the field size is greater 
+                        than 20, they can be played adjacent to the building. Buildings can be built under creatures or adjacent to them regardless of field size.</p>
+
+                    <p>When a card requires to be "stacked" on top of another card in order to play it, there must be a valid card, typically that you control, already on the field.
+                        The stacked card is played in the same position as the first card. This action counts as a card being played. Any counters on the first card are removed, as 
+                        well as any damage, but any equipped cards remain. The first card acts as an "equipped" card of sorts for the second, although its effects are ignored. Some 
+                        cards may use the effects or attributes of the "stacked" card, meaning the first card.</p>
+
+                    <h3>Counters</h3>
+
+                    <p>Cards can respond to other card effects to activate their own effects. This mechanic is heavily inspired/borrowed from Yu-Gi-Oh!.</p>
+
+                    <p>Effects with no counter tier cannot be activated in response to another card's effect. As a rule of thumb, if it doesn't say what counter level, it's 
+                        level 0. Tiered counter cards can counter a card with the same tier or lower (example: <span th:replace="~{fragments/symbol :: card-symbol(c2,action)}"/> cards can activate 
+                        in response to <span th:replace="~{fragments/symbol :: card-symbol(c1,action)}"/> but not the other way around)</p>
+
+                    <p>Counter cards can only respond when a card effect is activated. Some passive effects, like from Stage actions, are not applicable. The activation of an effect to
+                        target a card is often explicitly mentioned, and here an opponent can respond to that effect with a valid counter. Adding time counters for valid cards does not
+                        count as an activated effect.</p>
+
+                    <p>The "counter chain" is a sequence of effects in response to each other. If multiple cards activate in effect to each other in sequence, the order of effects is evaluated backwards,
+                        starting with the last card and ending with the first. For instance:
+                        <ul>
+                            <li>Cancel is activated when a creature activates its effect. The opponent responds with a Cancel of their own. The last Cancel stops the first from activating, therefore
+                                the original creature's effect can proceed.
+                            </li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div id="rules-technicalities">
+                    <h2>Technicalities</h2>
+
+                    <p>This is a list of technicalities that may come up. Some have been explained in the rules already.</p>
+
+                    <p>You can only attack buildings if they are vacant or if you have a creature on them. You cannot attack your own cards.</p>
+
+                    <p>Any counters on a creature are removed when a creature is stacked on, but equipped cards remain.</p>
+
+                    <p>If a player takes control of an opponent's card, that card is returned to the owner when it goes to the graveyard, is dumped, or sent to the deck.</p>
+
+                    <p>If a card is moved from the field to elsewhere (deck, dump, hand, etc) attached cards (equipped and stacked) are sent to the GY, unless otherwise stated.</p>
+
+                    <p>When "A year passes":
+                        <ol>
+                            <li>All eligible cards gain 1 Time counter</li>
+                            <li>Any non-immune cards with a poison counter take 100 damage for each poison counter</li>
+                            <li>Any dependent creatures not on a building of the same archetype take 100 damage</li>
+                        </ol>
+                    </p>
+
+                    <p>If a creature is healed, remove any poison counters from it.</p>
+
+                    <p>Poison counters do not affect God cards.</p>
+
+                    <p>Certain playing conditions like "this card cannot be activated during the fight phase" cannot be stopped, because stopping them would stop the effect
+                        activation. Typically semicolons mean that the counter still applies, and is part of the same effect, while periods typically separate effects. If a card was 
+                        added to hand from the graveyard and said it had to be dumped when it went back, canceling the card's effect of sending it back conflicts with the card that 
+                        activated it and cannot be done.</p>
+
+                    <p>Equip actions, when played, are treated as Counter-0 by default. Equip actions and Equip buildings attach only to creatures or animated cards, unless otherwise stated.</p>
+
+                    <p>A "Replica" is a card, usually a creature represented with a counter unless you have the card, that can be played by certain cards. Play it like you normally would, and 
+                        use the stats/effects listed on the card that plays that replica. If you have the card that represents that counter, it does not go in your deck, rather on the side, 
+                        not counted in the total deck count. They are either rare in packs or only appear in special packs, and do not have a rarity. You do not need a physical replica card 
+                        in order to use the effect, you can just use a coin or upside-down card for example. For the web version of the game, replica cards are represented as that card, and you cannot
+                        (or at least shouldn't be able to) get them.</p>
+
+                    <p>When a card has playing conditions, such as needing to discard a card or destroy a creature, you cannot cancel the effect and make the sacrifice in vain; unless the card says, 
+                        those actions occur at the same time. If you were to cancel it being played from hand, for example, then the sacrifice wouldn't happen and the owner could just play it again.</p>
+
+                    <p>"Destroying" a card is when that card leaves the field. "Destroying by battle" a card is when that card is destroyed by an attack or damage. "When it goes to the GY" counts as being destroyed in general.</p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

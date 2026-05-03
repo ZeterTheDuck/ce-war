@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<!-- Home page. Replaces index.html -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <title>CE War</title>
+        <link rel="stylesheet" type="text/css" th:href="@{style.css}">
+        <link rel="icon" type="image/png" th:href="@{images/logo.png}">
+    </head>
+    <body>
+        <!-- Replace this item with the container located at fragments/header with the tag "th:fragment="header"" -->
+        <div th:replace="~{fragments/header :: header}"/>
+
+        <div th:if="${post_register}" id="post-register">
+                <p>Successfully registered! You can now <a th:href="/account">log in</a>.</p>
+        </div>
+        <h1>Hello World!</h1>
+    </body>
+</html>

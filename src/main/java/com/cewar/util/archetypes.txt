@@ -1,0 +1,5 @@
+Places to add archetypes, if more are ever added, because my programming is garbage lol:
+
+cardGenerator\PackGenerator: line 21 (add archetype to series pack enums)
+	similarly, lines 124, 131, 200 (maybe), 390
+library\CELib: line 10 (add archetype to Archetype enum) 

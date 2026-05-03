@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <title>CE War - Card Symbol Fragments</title>
+    <link rel="stylesheet" type="text/css" th:href="@{~/style.css}">
+    <link rel="icon" type="image/png" th:href="@{~/images/logo.png}">
+</head>
+<!--th:alt-title="${symbolID}"-->
+<body>
+    <svg th:fragment="card-symbol(symbolID,symbolColor)" class="card-symbol" role="img" aria-labelledby="title" >
+        <title id="title"><th:block th:text="${symbolID}"/></title>
+        <use th:href="|/images/card_symbol.svg#${symbolID}|" th:style="|--icon-color: var(--${symbolColor}-color);|"/>
+    </svg>
+</body>

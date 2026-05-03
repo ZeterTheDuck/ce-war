@@ -1,0 +1,44 @@
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Card Data Stuff ###
+/src/main/resources/private/cardIndex.json
+/src/main/resources/static/images/cards
+!/src/main/resources/static/images/cards/card_shine.gif
+/src/main/resources/static/images/userProfiles
+/src/main/java/com/cewar/util/json/cardIndexToFix.json
+# ⬇️ Files for testing and learning stuff
+/src/main/java/com/cewar/example
+/src/main/resources/static/test
+

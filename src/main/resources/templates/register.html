@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!-- Register Page -->
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <title>CE War - Register </title>
+        <link rel="stylesheet" type="text/css" th:href="@{style.css}">
+        <link rel="icon" type="image/png" th:href="@{images/logo.png}">
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    </head>
+    <body>
+        <!-- Replace this item with the container located at resources/templates/fragments/header that has the tag "th:fragment="header"" -->
+        <div th:replace="~{fragments/header :: header}"/>
+
+        <section class="register">
+            <h1>User Register</h1>
+            <form id="register-form" action="#" th:object="${user}" th:action="@{/register}" method="POST" enctype="utf8">
+                <label>
+                    Email Address:
+                    <input type="email" id="email-input" th:field="*{email}"/><br>
+                </label><br>
+                <label>
+                    Username:
+                    <input type="text" id="username-input" th:field="*{username}"/><br>
+                </label><br>
+                <label>
+                    Password:
+                    <input type="password" id="password-input" th:field="*{password}"/><br>
+                </label><br>
+                <label>
+                    Password (confirm):
+                    <input type="password" id="password-input-2" th:field="*{passwordConfirm}"/><br>
+                </label><br>
+                <input type="submit" value="Submit"/>
+            </form>
+            <div th:if="${error_email}" class="error-msg">
+                <p>Email is invalid or already in use</p>
+            </div>
+            <div th:if="${error_username}" class="error-msg">
+                <p>Username is not available</p>
+            </div>
+            <div th:if="${error_password}" class="error-msg">
+                <p>Passwords do not match</p>
+            </div>
+        </section>
+    </body>
+
+    <script th:inline="javascript">
+        // Needed for Thymeleaf to be able to run this code
+        /*<![CDATA[*/
+
+        /*]]>*/
+    </script>
+
+</html>

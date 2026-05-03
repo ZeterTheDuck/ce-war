@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!-- Header template that is consistent across the whole site -->
+<!-- Add by including
+    <div th:replace="~{fragments/header :: header}"/>
+    at the start of the body tag
+-->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" th:href="@{style.css}">
+        <link rel="icon" type="image/png" th:href="@{/images/logo.png}">
+    </head>
+    <body>
+        <div class="header" th:fragment="header">
+            <header>
+            Header
+            </header>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/account">Account</a>
+                <a href="/card">Card Index</a>
+                <a href="/rules">Rules</a>
+            </nav>
+        </div>
+    </body>
+</html>

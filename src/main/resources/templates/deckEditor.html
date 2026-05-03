@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!-- Deck editor
+    Mapped by "/account/deck?id={deckId}" -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <title>Deck Editor</title>
+        <link rel="stylesheet" type="text/css" th:href="@{~/style.css}">
+        <link rel="icon" type="image/png" th:href="@{~/images/logo.png}">
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script th:src="@{~/searchCardCollection.js}"></script>
+    </head>
+    <body>
+        <!-- Replace this item with the container located at fragments/header with the tag "th:fragment="header"" -->
+        <div th:replace="~{fragments/header :: header}"/>
+
+        <div class="card-container" id="deck-contents" style="--card-height: 200px">
+
+        </div>
+
+
+        <div th:replace="~{fragments/card :: card-search(${cardDataArr})}"></div>
+
+        <form id="test-deck-update" action="#" th:object="${deckDto}" th:action="@{~/account/deck}" method="POST" enctype="utf8">
+            <label>
+                Card IDs, separated by commas:
+                <input type="text" id="text-input" th:field="*{cardIds}"/><br>
+            </label><br>
+            <label>
+                Deck Name:
+                <input type="text" id="deck-name-input" th:field="*{name}"/><br>
+            </label><br>
+            <input id="save-button" type="submit" th:value="Save">
+        </form>
+    </body>
+    <script th:inline="javascript">
+        // Needed for Thymeleaf to be able to run this code
+        /*<![CDATA[*/
+        var deckDto = /*[[${deckDto}]]*/ "";
+        var cardList = /*[[${cardDataArr}]]*/ "";
+        const csrf_token = /*[[${_csrf.token}]]*/ "";
+        const csrf_header = /*[[${_csrf.headerName}]]*/ "";
+
+
+        var cardIds = deckDto.cardIds;
+
+
+        // document.getElementById("test-deck-update").addEventListener("submit", function (e) {
+        //     e.preventDefault(); // Stop form from trying to send its data to the server
+        // });
+
+        $(document).on("cardsRendered", function () {
+            // FIXME since the program just deletes cards that get filtered out, they do not appear in the deck contents
+            cardIds.forEach(cardId =>  {
+                $("#deck-contents").append($(`.ucid-${cardId}`));
+            });
+
+            // Move cards between deck contents and remaining inventory
+            // TODO figure out how to deal with merged cards
+            $(".card-simple").on("click", function () {
+                let ucid = getUcid($(this));
+                if($(this).parent().attr("id") == "deck-contents") {
+                    cardIds = cardIds.filter(id => id !== ucid);
+                    $("#filter-form-submit").click();
+                } else {
+                    cardIds.push(ucid);
+                    $("#deck-contents").append($(this)); // TODO It would be nice to have the deck contents sorted by archetype
+                }
+            });
+        });
+
+        $(document).ready(function() {
+            $("#save-button").on("click", function (event) {
+                event.preventDefault();
+
+                deckDto.name = $("#deck-name-input").val();
+                deckDto.cardIds = cardIds;
+
+                saveDeck();
+            });
+
+            $(".card-container").not("#deck-contents").attr("id", "inventory");
+        })
+
+        async function saveDeck() {
+            try {
+                const response = await fetch(`http://localhost:80/account/deck`, { // Pauses until fetch resolves
+                    method: "POST",
+                    credentials: "same-origin",
+                    headers: {
+                        "Content-Type": "application/json",
+                        [csrf_header]: csrf_token
+                    },
+                    body: JSON.stringify(deckDto) });
+                if (!response.ok) {
+                    throw new Error(`Response Status: ${response.status}`);
+                    return;
+                } else {
+
+                }
+            } catch (error) {
+                console.error(error.message);
+            }
+        }
+        /*]]>*/
+    </script>
+</html>
