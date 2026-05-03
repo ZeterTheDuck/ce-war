@@ -271,27 +271,3 @@ function formatCardDiv(card, cardDiv) {
     }
     // !SECTION
 }
-
-/**
- * Formats the first blank card div to display an image version of a card
- * @Deprecated not used anymore, cards are formatted when they are displayed
- * 
- * @param {*} card 
- */
-function formatSimpleCardFirst(card) {
-    // Pick the first blank card
-    var cardDiv = $(".card-simple.blank-card").first();
-    // Prevent this card from being selected again
-    cardDiv.removeClass("blank-card");
-
-    // Add card id to class of the card table for filtering
-    cardDiv.addClass(card.id);
-
-    // TODO set image to correct image
-    cardDiv.find(".card-preview-image").attr("src", card.fullResSource);
-
-    // Display shiny div if applicable
-    if (card.shiny) {
-        cardDiv.find(".card-shine").css("visibility", "visible");
-    }
-}

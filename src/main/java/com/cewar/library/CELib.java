@@ -37,19 +37,6 @@ public class CELib {
     }
 
     /**
-     * Represents a counter on a card
-     * 
-     * @deprecated Counters are represented as Strings, not enums
-     */
-    public enum Counter {
-        // Archetype Counters
-        STAPLE, FEATHERY, SKELL, BUGGLE, AQUATIC, MATERIAL, TAROT, CODED, SLIME, ARACHNIC, LIZAR, HUMAN, FORTUNE, DRAGON,
-
-        // Other Counters
-        EFFECT, FUEL, JUSTICE, POISON, TIME
-    }
-
-    /**
      * Used by {@link com.cewar.game.GameCard GameCards} to refer to their location in a game.
      */
     public enum Location { HAND, DECK, FIELD, GRAVE, DUMP, EXTRA }

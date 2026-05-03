@@ -27,7 +27,6 @@ import com.cewar.inventory.FilteredCardCollection;
 import com.cewar.library.Card;
 import com.cewar.repository.CardRepository;
 import com.cewar.repository.UserRepository;
-import com.cewar.web.CardFilterDto;
 import com.cewar.web.RegisterDto;
 import com.cewar.web.userdetails.User;
 import com.cewar.web.userdetails.UserCard;
@@ -145,67 +144,6 @@ public class CeWarController {
         FilteredCardCollection fcc = new FilteredCardCollection(cardRepository.findAll(), FilteredCardCollection.SortType.ARCHETYPE);
         model.addAttribute("cardDataArr", fcc.toArray());
         return "database";
-    }
-
-    /**
-     * Gets a list of all cards that match a set of filters.
-     * 
-     * <p> <strong>Authority:</strong> NONE
-     * 
-     * @param filters - {@link CardFilterDto} with configured filters
-     * 
-     * @deprecated card filters are now handled client-side with {@link searchCardCollection.js}
-     */
-    @PostMapping("/card")
-    public String postCardIndex(@ModelAttribute("filters") CardFilterDto filterDto, Model model) {
-
-        FilteredCardCollection fcc = new FilteredCardCollection(cardRepository.findAll(), FilteredCardCollection.SortType.ARCHETYPE);
-
-        ArrayList<Object> filters = new ArrayList<>(); // Must match all of these
-
-        // SECTION apply filters
-        if (filterDto.getRarity() != null) {
-            try {
-                filters.add(filterDto.getRarity());
-            } catch (Exception e) {
-                // Do nothing
-            }
-        }
-        if (filterDto.getType() != null) {
-            try {
-                filters.add(filterDto.getType());
-            } catch (Exception e) {
-                // Do nothing
-            }
-        }
-        if (filterDto.getAttributes().length > 0) {
-            for (int i = 0; i < filterDto.getAttributes().length; i++) {
-                try {
-                    filters.add(filterDto.getAttributes()[i]);
-                } catch (Exception e) {
-                    // Do nothing
-                }
-            }
-        }
-        if (filterDto.getArchetypes().length > 0) {
-            for (int i = 0; i < filterDto.getArchetypes().length; i++) {
-                try {
-                    filters.add(filterDto.getArchetypes()[i]);
-                } catch (Exception e) {
-                    // Do nothing
-                }
-            }
-        }
-        if (filterDto.getText() != null) {
-            filters.add(filterDto.getText());
-        }
-
-        fcc.removeIfNotAll(filters);
-
-        model.addAttribute("filters", filterDto);
-
-        model.addAttribute("cardDataArr", fcc.toArray());
-        return "cardSearch";
     }
 
     /**

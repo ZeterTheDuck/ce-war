@@ -28,14 +28,6 @@ public class PackGenerator {
         MATERIAL(null), 
         RARE(null),
 
-        /**
-         * @deprecated
-         * GAPS and STARTER should not be available in the program.
-         * These were just packs from the phyical version of the game.
-         */
-        @Deprecated GAPS(null), 
-        @Deprecated STARTER(null),
-
         AQUATIC(Archetype.AQUATIC), 
         ARACHNIC(Archetype.ARACHNIC), 
         BUGGLE(Archetype.BUGGLE), 
@@ -210,7 +202,7 @@ public class PackGenerator {
      * Spreadsheet for a visual of chances: {@link https://docs.google.com/spreadsheets/d/1eYTwYfTc5wiF-jkXkGl4bUpqLezYvu1l6jg2L5Wlpi0/edit}
      * 
      * @param type - type of pack to generate
-     * @throws UnexpectedException - if pack type is invalid (GAPS and STARTER are Deprecated)
+     * @throws UnexpectedException - if pack type is invalid
 =     */
     public static List<CardDto> generate(Pack type, Collection<Card> cardBank) throws UnexpectedException, FileNotFoundException {
         cards = new ArrayList<>();

@@ -42,3 +42,5 @@ build/
 /src/main/java/com/cewar/example
 /src/main/resources/static/test
 
+### Deprecated Stuff I wanna keep ###
+/src/main/java/com/cewar/game/GameWebSocketConfig.java
