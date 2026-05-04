@@ -10,20 +10,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * TODO
- * 
- * Make GameCard its own thing and not extend Card bc that's annoying
- * 
- * Figure out position workings
- * 
- * I forgor 💀
- * 
- * Figure out how to make cards stack, how to designate a card as the "top" one (maybe just a boolean?) 
- *  and logic for when a card gets stacked on, particularly if it has cards attached to it
- */
-
-
-/**
  * Represents a dynamic card in play, having extra instance variables
  */
 public class GameCard implements Comparable<GameCard> {
@@ -82,7 +68,7 @@ public class GameCard implements Comparable<GameCard> {
     @Getter @Setter
     private GameCard attachedTo;
 
-    @Getter
+    @Getter @Setter
     private HashMap<Long, GameCard> attachedCards;
 
     /**
@@ -115,11 +101,7 @@ public class GameCard implements Comparable<GameCard> {
     public GameCard(UserCard userCard) {
         refCard = userCard.asCard();
         ucid = userCard.getId();
-        counters = new HashMap<>();
-        location = Location.DECK;
-        attack = refCard.getAttack();
-        health = refCard.getHealth();
-        maxHealth = refCard.getHealth();
+        resetData(); // Set data to default
     }
 
     /**
@@ -154,6 +136,41 @@ public class GameCard implements Comparable<GameCard> {
         }
     }
 
+    /**
+     * Attach this card to another card, recursively repeating for cards attached to this card.
+     * <p> Resets counter, health, attack, etc., and changes location and position to match other card.
+     * 
+     * @param other Card to attach this card to
+     */
+    public void attachTo(GameCard other) {
+        // 1. Recursively repeat for all attached cards
+        for (GameCard card : attachedCards.values()) {
+            card.attachTo(other);
+        }
+
+        // 2. Clear data=
+        resetData();
+
+        // 3. Attach to other card
+        attachedTo = other;
+        this.location = other.getLocation();
+        this.x = other.getX();
+        this.y = other.getY();
+    }
+
+    /**
+     * Moves a card to a specified location.
+     * 
+     * @param x
+     * @param y
+     * @param location
+     */
+    public void moveTo(int x, int y, Location location) {
+        this.x = x;
+        this.y = y;
+        this.location = location;
+    }
+
     @Override
     public int compareTo(GameCard o) {
         return ucid.compareTo(o.getUcid());
@@ -162,6 +179,24 @@ public class GameCard implements Comparable<GameCard> {
     @Override
     public int hashCode() {
         return Long.hashCode(ucid);
+    }
+
+    /**
+     * Resets this card's data to default. Use this when this card gets moved
+     * 
+     * <p> The following data is cleared:
+     * <li> Health
+     * <li> Attack
+     * <li> Max Health
+     * <li> Attached Cards (cards may still point to this card as the top)
+     */
+    private void resetData() {
+        attack = refCard.getAttack();
+        health = refCard.getHealth();
+        maxHealth = refCard.getHealth();
+        attachedCards = new HashMap<>();
+        counters = new HashMap<>();
+        attachedTo = null;
     }
     
 }
