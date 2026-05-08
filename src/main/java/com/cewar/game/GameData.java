@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Random;
 
-import com.cewar.library.CELib.Location;
+import com.cewar.enums.Location;
 import com.cewar.web.userdetails.UserDeck;
 
 import lombok.Getter;

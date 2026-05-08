@@ -10,7 +10,7 @@ import java.util.ListIterator;
 import java.util.function.Predicate;
 
 import com.cewar.library.Card;
-import com.cewar.library.CELib.*;
+import com.cewar.enums.*;
 
 /**
  * A collection of cards that can easily be filtered.

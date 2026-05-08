@@ -3,7 +3,7 @@ package com.cewar.game;
 import java.util.HashMap;
 
 import com.cewar.library.Card;
-import com.cewar.library.CELib.Location;
+import com.cewar.enums.Location;
 import com.cewar.web.userdetails.UserCard;
 
 import lombok.Getter;

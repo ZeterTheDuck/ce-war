@@ -2,8 +2,8 @@ package com.cewar.web.userdetails;
 
 import java.util.Collection;
 
-import com.cewar.cardGenerator.CardDto;
 import com.cewar.cardGenerator.PackGenerator;
+import com.cewar.dtos.CardDto;
 import com.cewar.library.Card;
 
 import jakarta.persistence.*;

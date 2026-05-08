@@ -7,9 +7,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
+import com.cewar.dtos.CardDto;
 import com.cewar.inventory.FilteredCardCollection;
 import com.cewar.library.Card;
-import com.cewar.library.CELib.*;
+import com.cewar.enums.*;
 
 /**
  * Class to generate a pack

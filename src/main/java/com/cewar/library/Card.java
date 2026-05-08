@@ -3,7 +3,7 @@ package com.cewar.library;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cewar.library.CELib.*;
+import com.cewar.enums.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
