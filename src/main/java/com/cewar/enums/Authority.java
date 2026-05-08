@@ -1,4 +1,4 @@
-package com.cewar.web.userdetails;
+package com.cewar.enums;
 
 import org.springframework.security.core.GrantedAuthority;
 
