@@ -1,4 +1,4 @@
-package com.cewar.web;
+package com.cewar.config;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -18,8 +18,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.cewar.services.MyUserDetailsService;
 import com.cewar.web.userdetails.Authority;
-import com.cewar.web.userdetails.MyUserDetailsService;
 
 @Configuration
 @EnableWebSecurity

@@ -1,3 +1,4 @@
+package com.cewar.config;
 // package com.cewar.game;
 
 // import org.springframework.context.annotation.Configuration;
