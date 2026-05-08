@@ -1,4 +1,4 @@
-package com.cewar.repository;
+package com.cewar.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
