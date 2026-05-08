@@ -1,4 +1,4 @@
-package com.cewar.web;
+package com.cewar.dtos;
 
 import java.util.List;
 

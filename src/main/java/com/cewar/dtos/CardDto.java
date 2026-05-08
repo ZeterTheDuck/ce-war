@@ -1,4 +1,4 @@
-package com.cewar.cardGenerator;
+package com.cewar.dtos;
 
 import com.cewar.library.Card;
 
