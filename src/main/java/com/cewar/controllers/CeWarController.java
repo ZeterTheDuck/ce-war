@@ -1,4 +1,4 @@
-package com.cewar.web.controller;
+package com.cewar.controllers;
 
 import java.io.FileNotFoundException;
 import java.rmi.UnexpectedException;
@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
-import com.cewar.cardGenerator.CardDto;
 import com.cewar.cardGenerator.PackGenerator;
 import com.cewar.cardGenerator.PackGenerator.*;
+import com.cewar.dtos.CardDto;
+import com.cewar.dtos.RegisterDto;
 import com.cewar.inventory.FilteredCardCollection;
 import com.cewar.library.Card;
-import com.cewar.repository.CardRepository;
-import com.cewar.repository.UserRepository;
-import com.cewar.web.RegisterDto;
+import com.cewar.repositories.CardRepository;
+import com.cewar.repositories.UserRepository;
 import com.cewar.web.userdetails.User;
 import com.cewar.web.userdetails.UserCard;
 import com.cewar.web.userdetails.UserDeck;

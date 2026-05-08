@@ -1,4 +1,4 @@
-package com.cewar.web.controller;
+package com.cewar.controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,9 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.cewar.dtos.DeckDto;
 import com.cewar.inventory.FilteredCardCollection;
-import com.cewar.repository.UserRepository;
-import com.cewar.web.DeckDto;
+import com.cewar.repositories.UserRepository;
 import com.cewar.web.userdetails.*;
 
 import jakarta.servlet.http.HttpServletResponse;

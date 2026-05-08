@@ -1,4 +1,4 @@
-package com.cewar.web.controller;
+package com.cewar.controllers;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cewar.library.Card;
-import com.cewar.repository.CardRepository;
+import com.cewar.repositories.CardRepository;
 import com.cewar.util.CardReader;
 
 import org.springframework.web.bind.annotation.GetMapping;

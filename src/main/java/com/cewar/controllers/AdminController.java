@@ -1,4 +1,4 @@
-package com.cewar.web.controller;
+package com.cewar.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cewar.repository.UserRepository;
+import com.cewar.repositories.UserRepository;
 import com.cewar.web.userdetails.User;
 
 /**

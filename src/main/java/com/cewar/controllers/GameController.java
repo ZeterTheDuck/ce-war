@@ -1,9 +1,12 @@
-package com.cewar.game;
+package com.cewar.controllers;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.util.HtmlUtils;
+
+import com.cewar.game.GameMessage;
+import com.cewar.game.GameResponse;
 
 /**
  * Controller for game API functions

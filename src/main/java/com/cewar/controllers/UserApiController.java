@@ -1,11 +1,11 @@
-package com.cewar.web.controller;
+package com.cewar.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cewar.cardGenerator.CardDto;
-import com.cewar.repository.CardRepository;
-import com.cewar.repository.UserRepository;
+import com.cewar.dtos.CardDto;
+import com.cewar.repositories.CardRepository;
+import com.cewar.repositories.UserRepository;
 import com.cewar.web.userdetails.Authority;
 import com.cewar.web.userdetails.User;
 import com.cewar.web.userdetails.UserCard;
