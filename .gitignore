@@ -34,13 +34,13 @@ build/
 
 ### Card Data Stuff ###
 /src/main/resources/private/cardIndex.json
-/src/main/resources/static/images/cards
-!/src/main/resources/static/images/cards/card_shine.gif
-/src/main/resources/static/images/userProfiles
+/src/main/resources/images/cards
+!/src/main/resources/images/cards/card_shine.gif
+/src/main/resources/images/userProfiles
 /src/main/java/com/cewar/util/json/cardIndexToFix.json
 # ⬇️ Files for testing and learning stuff
 /src/main/java/com/cewar/example
-/src/main/resources/static/test
+/src/main/resources/test
 
 ### Deprecated Stuff I wanna keep ###
 /src/main/java/com/cewar/game/GameWebSocketConfig.java
