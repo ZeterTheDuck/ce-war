@@ -1,4 +1,4 @@
-package com.cewar.inventory;
+package com.cewar.model.session;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.function.Predicate;
 
-import com.cewar.library.Card;
 import com.cewar.enums.*;
+import com.cewar.model.entity.Card;
 
 /**
  * A collection of cards that can easily be filtered.

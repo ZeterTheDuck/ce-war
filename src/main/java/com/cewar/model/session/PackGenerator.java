@@ -1,4 +1,4 @@
-package com.cewar.cardGenerator;
+package com.cewar.model.session;
 
 import java.io.FileNotFoundException;
 import java.rmi.UnexpectedException;
@@ -7,9 +7,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
-import com.cewar.dtos.CardDto;
-import com.cewar.inventory.FilteredCardCollection;
-import com.cewar.library.Card;
+import com.cewar.model.dtos.CardDto;
+import com.cewar.model.entity.Card;
 import com.cewar.enums.*;
 
 /**

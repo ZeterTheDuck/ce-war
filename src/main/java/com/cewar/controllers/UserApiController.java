@@ -3,12 +3,12 @@ package com.cewar.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cewar.dtos.CardDto;
 import com.cewar.enums.Authority;
+import com.cewar.model.dtos.CardDto;
+import com.cewar.model.entity.User;
+import com.cewar.model.entity.UserCard;
 import com.cewar.repositories.CardRepository;
 import com.cewar.repositories.UserRepository;
-import com.cewar.web.userdetails.User;
-import com.cewar.web.userdetails.UserCard;
 
 import java.util.NoSuchElementException;
 

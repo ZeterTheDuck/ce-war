@@ -1,7 +1,7 @@
 package com.cewar.enums;
 
 /**
- * Used by {@link com.cewar.game.GameCard GameCards} to refer to their location in a game.
+ * Used by {@link com.cewar.model.session.GameCard GameCards} to refer to their location in a game.
  */
 public enum Location {
     HAND,

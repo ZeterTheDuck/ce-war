@@ -1,4 +1,4 @@
-package com.cewar.dtos;
+package com.cewar.model.dtos;
 
 import java.util.List;
 

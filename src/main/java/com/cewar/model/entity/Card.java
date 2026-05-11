@@ -1,4 +1,4 @@
-package com.cewar.library;
+package com.cewar.model.entity;
 
 import java.util.ArrayList;
 import java.util.List;

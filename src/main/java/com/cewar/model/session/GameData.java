@@ -1,4 +1,4 @@
-package com.cewar.game;
+package com.cewar.model.session;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import com.cewar.enums.Location;
-import com.cewar.web.userdetails.UserDeck;
+import com.cewar.model.entity.UserDeck;
 
 import lombok.Getter;
 

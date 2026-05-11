@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import org.springframework.stereotype.Service;
 
-import com.cewar.game.GameData;
+import com.cewar.model.session.GameData;
 
 /**
  * A service to manage game objects

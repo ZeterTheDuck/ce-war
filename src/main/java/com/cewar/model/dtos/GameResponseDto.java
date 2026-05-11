@@ -1,4 +1,4 @@
-package com.cewar.game;
+package com.cewar.model.dtos;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,16 +6,16 @@ import lombok.Setter;
 /**
  * Server response DTO for games
  */
-public class GameResponse {
+public class GameResponseDto {
     @Getter
     @Setter
     private String content;
 
-    public GameResponse() {
+    public GameResponseDto() {
 
     }
 
-    public GameResponse(String content) {
+    public GameResponseDto(String content) {
         this.content = content;
     }
 }

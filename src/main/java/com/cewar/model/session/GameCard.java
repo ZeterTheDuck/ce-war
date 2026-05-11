@@ -1,10 +1,10 @@
-package com.cewar.game;
+package com.cewar.model.session;
 
 import java.util.HashMap;
 
-import com.cewar.library.Card;
+import com.cewar.model.entity.Card;
+import com.cewar.model.entity.UserCard;
 import com.cewar.enums.Location;
-import com.cewar.web.userdetails.UserCard;
 
 import lombok.Getter;
 import lombok.Setter;

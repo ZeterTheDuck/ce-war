@@ -1,9 +1,7 @@
-package com.cewar.web.userdetails;
+package com.cewar.model.entity;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
-import com.cewar.library.Card;
 
 import jakarta.persistence.*;
 import lombok.*;

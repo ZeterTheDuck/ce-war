@@ -1,4 +1,4 @@
-package com.cewar.dtos;
+package com.cewar.model.dtos;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;

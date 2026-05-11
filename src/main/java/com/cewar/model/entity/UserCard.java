@@ -1,10 +1,9 @@
-package com.cewar.web.userdetails;
+package com.cewar.model.entity;
 
 import java.util.Collection;
 
-import com.cewar.cardGenerator.PackGenerator;
-import com.cewar.dtos.CardDto;
-import com.cewar.library.Card;
+import com.cewar.model.dtos.CardDto;
+import com.cewar.model.session.PackGenerator;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

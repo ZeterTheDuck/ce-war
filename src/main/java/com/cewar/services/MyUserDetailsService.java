@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import com.cewar.model.entity.User;
 import com.cewar.repositories.UserRepository;
-import com.cewar.web.userdetails.User;
 
 /**
  * A User DAO (Data Access Object) helper class for DaoAuthenticationProvider.

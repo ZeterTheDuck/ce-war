@@ -1,14 +1,14 @@
-package com.cewar.dtos;
+package com.cewar.model.dtos;
 
-import com.cewar.library.Card;
+import com.cewar.model.entity.Card;
 
 import jakarta.annotation.Nullable;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * A modifiable in-memory version of a {@link com.cewar.library.Card Card} that can easily be modified without
- * dealing with database conflicts for creating {@link com.cewar.web.userdetails.UserCard UserCards}
+ * A modifiable in-memory version of a {@link com.cewar.model.entity.Card Card} that can easily be modified without
+ * dealing with database conflicts for creating {@link com.cewar.model.entity.UserCard UserCards}
  * 
  * @param cardId
  * @param artSource

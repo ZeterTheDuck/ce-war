@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cewar.model.entity.User;
 import com.cewar.repositories.UserRepository;
-import com.cewar.web.userdetails.User;
 
 /**
  * Controller covering administrator methods in the administrator dashboard. 

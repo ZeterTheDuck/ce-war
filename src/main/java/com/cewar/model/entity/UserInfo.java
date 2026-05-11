@@ -1,4 +1,4 @@
-package com.cewar.web.userdetails;
+package com.cewar.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

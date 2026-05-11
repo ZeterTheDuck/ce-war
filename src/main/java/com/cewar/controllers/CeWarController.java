@@ -20,17 +20,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
-import com.cewar.cardGenerator.PackGenerator;
-import com.cewar.cardGenerator.PackGenerator.*;
-import com.cewar.dtos.CardDto;
-import com.cewar.dtos.RegisterDto;
-import com.cewar.inventory.FilteredCardCollection;
-import com.cewar.library.Card;
+import com.cewar.model.dtos.CardDto;
+import com.cewar.model.dtos.RegisterDto;
+import com.cewar.model.entity.Card;
+import com.cewar.model.entity.User;
+import com.cewar.model.entity.UserCard;
+import com.cewar.model.entity.UserDeck;
+import com.cewar.model.session.FilteredCardCollection;
+import com.cewar.model.session.PackGenerator;
+import com.cewar.model.session.PackGenerator.*;
 import com.cewar.repositories.CardRepository;
 import com.cewar.repositories.UserRepository;
-import com.cewar.web.userdetails.User;
-import com.cewar.web.userdetails.UserCard;
-import com.cewar.web.userdetails.UserDeck;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;

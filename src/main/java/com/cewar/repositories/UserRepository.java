@@ -2,7 +2,7 @@ package com.cewar.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.cewar.web.userdetails.User;
+import com.cewar.model.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 

@@ -13,10 +13,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.cewar.dtos.DeckDto;
-import com.cewar.inventory.FilteredCardCollection;
+import com.cewar.model.dtos.DeckDto;
+import com.cewar.model.entity.User;
+import com.cewar.model.entity.UserCard;
+import com.cewar.model.entity.UserDeck;
+import com.cewar.model.entity.UserInfo;
+import com.cewar.model.session.FilteredCardCollection;
 import com.cewar.repositories.UserRepository;
-import com.cewar.web.userdetails.*;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;

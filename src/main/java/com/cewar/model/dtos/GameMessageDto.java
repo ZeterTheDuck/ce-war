@@ -1,4 +1,4 @@
-package com.cewar.game;
+package com.cewar.model.dtos;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,16 +6,16 @@ import lombok.Setter;
 /**
  * Client message DTO for games
  */
-public class GameMessage {
+public class GameMessageDto {
     @Getter
     @Setter
     private String message;
 
-    public GameMessage() {
+    public GameMessageDto() {
 
     }
 
-    public GameMessage(String message) {
+    public GameMessageDto(String message) {
         this.message = message;
     }
 }
