@@ -1,4 +1,4 @@
-package com.cewar.config;
+package com.cewar.configs;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
