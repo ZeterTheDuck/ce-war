@@ -11,7 +11,7 @@
     </parent>
     <groupId>com.cewar</groupId>
     <artifactId>ce-war</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2</version>
     <name>ce-war</name>
     <description>CE War TCG, but Online</description>
     <url/>
