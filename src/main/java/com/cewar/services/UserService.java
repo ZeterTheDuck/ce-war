@@ -11,7 +11,7 @@ import com.cewar.repositories.UserRepository;
  * A User DAO (Data Access Object) helper class for DaoAuthenticationProvider.
  */
 @Component
-public class MyUserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
+public class UserService implements org.springframework.security.core.userdetails.UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;

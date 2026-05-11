@@ -19,14 +19,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.cewar.enums.Authority;
-import com.cewar.services.MyUserDetailsService;
+import com.cewar.services.UserService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
     @Autowired
-    private MyUserDetailsService userDetailsService;
+    private UserService userDetailsService;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
