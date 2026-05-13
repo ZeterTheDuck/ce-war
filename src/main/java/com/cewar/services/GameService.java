@@ -44,6 +44,6 @@ public class GameService {
      * @param newGame - gameData object to add or replace 
      */
     public void put(GameData newGame) {
-        games.put(newGame.getGameId(), newGame);
+        games.put(newGame.getId(), newGame);
     }
 }

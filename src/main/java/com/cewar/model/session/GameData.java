@@ -16,7 +16,7 @@ import lombok.Getter;
 public class GameData {
 
     @Getter
-    private final int gameId;
+    private final int id;
 
     /**
      * The IDs of the players
@@ -35,10 +35,19 @@ public class GameData {
     @Getter
     private int width, height;
 
-    public GameData(UserDeck p1Deck, UserDeck p2Deck, int gameId, int width, int height) {
+    /**
+     * Constructor
+     * 
+     * @param p1Deck
+     * @param p2Deck
+     * @param id - a new game ID
+     * @param width - the width of the field
+     * @param height - the height of the field
+     */
+    public GameData(UserDeck p1Deck, UserDeck p2Deck, int id, int width, int height) {
         this.player1Id = p1Deck.getOwnerId();
         this.player2Id = p2Deck.getOwnerId();
-        this.gameId = gameId;
+        this.id = id;
         this.width = width;
         this.height = height;
     }
