@@ -21,8 +21,6 @@ Most actions are sent to the backend through a [GameMessageDto] that has fields 
   - something to do with counters
     - Counter name
     - New value only (frontend calculates this)
-  - size (may just be making a card be able to take up more than one X or Y position?)
-  - owner
 - Draw card
   - optional parameter for draw slot
 - Add card

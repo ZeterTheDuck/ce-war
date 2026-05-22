@@ -48,6 +48,7 @@ public class GameController {
 
 
         Thread.sleep(1000); // simulated delay
-        return new GameResponseDto("Received message " + HtmlUtils.htmlEscape(message.getMessage())); // Sanitize to prevent attacks
+        // return new GameResponseDto("Received message " + HtmlUtils.htmlEscape(message.getMessage())); // Sanitize to prevent attacks
+        return null; // STUB change this once GameMessageDto and GameResponseDto are updated
     }
 }
