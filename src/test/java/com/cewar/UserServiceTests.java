@@ -18,7 +18,7 @@ import com.cewar.repositories.UserRepository;
  * Test class for {@link com.cewar.services.UserService Userservice}
  */
 @SpringBootTest
-public class TestUserService {
+public class UserServiceTests {
 
     @Autowired
     private UserService userService;
