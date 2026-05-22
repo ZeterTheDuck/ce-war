@@ -32,6 +32,9 @@ build/
 ### VS Code ###
 .vscode/
 
+### Project Stuff ###
+.env
+
 ### Card Data Stuff ###
 /src/main/resources/private/cardIndex.json
 /src/main/resources/static/images/cards/*
