@@ -3,10 +3,21 @@ This is an outline of how the API Endpoints for the game should work.
 
 ## Client to Backend Actions
 
-### Websocket Actions
-Most actions are sent to the backend through a [GameMessageDto] that has fields for several different types of actions. Each one should have a game ID and a user ID, as well as any number of the following types of actions. Perhaps a list of objects?
+### API Actions
+Most actions are sent to the backend by POST requests to the `/api/v1/games/` endpoint. Most use the `game-id` parameter, which should be the game's ID. All requests should be authenticated.
 
-- Set Card Values
+When a client makes a request to the API, the backend should add it to a queue of tasks. When a task is done, an "OK" response will be given. When the backend completes the last tasks for a game, it will send out a websocket response with an updated game board.
+
+There are numerous endpoints:
+
+- `POST api/v1/games/create`: creates a new game, returns a game ID which the user connects to via websocket.
+  - User 1 ID
+  - User 2 ID
+  - User 1 Deck ID
+  - User 2 Deck ID
+  - *honestly no clue how you're meant to get the other user's ID*
+
+- `POST api/v1/games/{game-id}/card`: sets values for a card. This will probably be the most used endpoint.
   - (required) User-Card ID
   - location
   - X position
@@ -23,19 +34,9 @@ Most actions are sent to the backend through a [GameMessageDto] that has fields 
     - New value only (frontend calculates this)
   - size (may just be making a card be able to take up more than one X or Y position?)
   - owner
-- Draw card
-  - optional parameter for draw slot
-- Add card
-  - used for replicas... worry about this later
 
-### Other Actions
-Other actions are mainly HTTP requests for making and ending games. Ending games may be done through a websocket.
+- `POST api/v1/games/{game-id}/draw`: draws a card
+  - (required) is Player one
+  - draw slot (0, 1, 2)
 
-- `POST /api/games/create`
-  - User 1 ID
-  - User 2 ID
-  - User 1 Deck ID
-  - User 2 Deck ID
-  - *honestly no clue how you're meant to get the other user's ID*
-
-[GameMessageDto]: ../src/main/java/com/cewar/model/dtos/GameMessageDto.java
+- `POST api/v1/games/{game-id}/add`: add a card to the game. For replicas, worry about this at a later point
