@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.cewar.model.entity.Card;
 import com.cewar.repositories.CardRepository;
@@ -13,6 +14,7 @@ import jakarta.persistence.EntityNotFoundException;
 /**
  * Service to access and manage Cards.
  */
+@Service
 public class CardService {
     @Autowired
     private CardRepository repo;

@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.cewar.model.entity.User;
 import com.cewar.repositories.UserRepository;
@@ -15,7 +15,7 @@ import jakarta.persistence.EntityNotFoundException;
 /**
  * Service to access and manage Users.
  */
-@Component
+@Service
 public class UserService implements org.springframework.security.core.userdetails.UserDetailsService {
 
     @Autowired
