@@ -73,10 +73,10 @@ public class GameData {
      * 
      * @param cardId
      * @param destination
-     * @param x
-     * @param y
+     * @param xPos
+     * @param yPos
      */
-    public void moveCard(long cardId, Location destination, int x, int y) {
+    public void moveCard(long cardId, Location destination, int xPos, int yPos) {
 
     }
 
@@ -211,20 +211,20 @@ public class GameData {
      * 
      * @implNote Only modifies the first card, since there should only be one.
      * 
-     * @param isPlayer1
+     * @param isPlayer1 - true if player 1 is drawing, false if it is player 2.
      * @param drawSlot - the index of the player's draw slots, starting at zero.
      */
     public void drawCard(boolean isPlayer1, int drawSlot) {
         int xPos;
         if (isPlayer1) {
-            xPos = -2;
+            xPos = 1;
         } else {
-            xPos = -1;
+            xPos = 2;
         }
 
         cards.forEach((id, card) -> {
-            if ((card.getX() == xPos)
-                && (card.getY() == drawSlot)
+            if ((card.getXPos() == xPos)
+                && (card.getYPos() == drawSlot)
                 && (card.getAttachedTo() == null)) {
                 card.setLocation(Location.HAND);
                 return;
@@ -251,7 +251,6 @@ public class GameData {
         cards.forEach((id, card) -> {
             if (card.getOwnerId().equals(playerId)
                     && card.getLocation().equals(Location.DECK)
-                    && (card.getX() > -1 || card.getX() < -2)
                     && (card.getAttachedTo() == null)) {
                 deckContents.add(card);
             }
@@ -269,17 +268,17 @@ public class GameData {
     public void replenishDrawSlots(boolean isPlayer1) {
         int xPos;
         if (isPlayer1) {
-            xPos = -2;
+            xPos = 1;
         } else {
-            xPos = -1;
+            xPos = 2;
         }
 
         // If a card is in a draw slot, do not replenish that slot
         boolean[] emptyDrawSlots = {true, true, true};
         cards.forEach((id, card) -> {
-            if ((card.getX() == xPos) && card.getLocation().equals(Location.DECK)) {
+            if ((card.getXPos() == xPos) && card.getLocation().equals(Location.DECK)) {
                 // Can throw an exception if a card ends up in an invalid slot
-                emptyDrawSlots[card.getY()] = false;
+                emptyDrawSlots[card.getYPos()] = false;
             }
         });
 
@@ -288,8 +287,8 @@ public class GameData {
             if (emptyDrawSlots[i]) {
                 GameCard drawnCard = drawRandomCard(isPlayer1);
                 if (drawnCard != null) {
-                    drawnCard.setX(xPos);
-                    drawnCard.setY(i);
+                    drawnCard.setXPos(xPos);
+                    drawnCard.setYPos(i);
                 }
             }
         }
