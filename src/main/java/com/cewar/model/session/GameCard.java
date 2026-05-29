@@ -33,7 +33,8 @@ public class GameCard implements Comparable<GameCard> {
     private Location location;
 
     /**
-     * The X and Y positions of this card. Ignored if {@link #cardLocation} is not "FIELD" or "DECK"
+     * The X and Y positions of this card. Ignored if {@link #cardLocation} is not "FIELD" or 
+     * "DECK"
      * 
      * <p> If the X-position is negative:
      * <ul><li> -4 is P1's God card, Y-position does not matter.
@@ -42,15 +43,26 @@ public class GameCard implements Comparable<GameCard> {
      * <li> -1 is P2's action slots. Y-position is the index.</ul>
      * 
      * <p> If the {@link #cardLocation} is "DECK":
-     * <ul><li> X-position of -2 is player 1's draw slots, Y-position indicates index
-     * <li> X-position of -1 is player 2's draw slots, Y-position indicates index.
+     * <ul><li> X-position of 1 is player 1's draw slots, Y-position indicates index
+     * <li> X-position of 2 is player 2's draw slots, Y-position indicates index.</ul>
      * 
      * <p>
-     * REVIEW Usage of X-position to indicate owner may not be necessary, there are not currently any cards
-     * or combination of cards that could end up in the opponent's side field or deck
+     * REVIEW Usage of X-position to indicate owner is likely not necessary, there are not
+     * currently any cards or combination of cards that could end up in the opponent's side field
+     * or deck.
      */
     @Getter @Setter
-    private int x, y;
+    private int xPos, yPos;
+
+    /**
+     * Values to control the size of a card. Ignored if the card's position is not on the regular
+     * playing field.
+     * 
+     * <p> The card will be displayed as a rectangular region between two points:
+     * <code>(xPos, yPos)</code> and <code>(xPos + xLength - 1, yPos + yLength - 1)</code>
+     */
+    @Getter @Setter
+    private int xLength, yLength;
 
     /**
      * AP and HP values for this card.
@@ -154,21 +166,47 @@ public class GameCard implements Comparable<GameCard> {
         // 3. Attach to other card
         attachedTo = other;
         this.location = other.getLocation();
-        this.x = other.getX();
-        this.y = other.getY();
+        this.xPos = other.getXPos();
+        this.yPos = other.getYPos();
     }
 
     /**
-     * Moves a card to a specified location.
+     * Moves a card to a specified location and position.
      * 
-     * @param x
-     * @param y
-     * @param location
+     * @param xPos the new x position
+     * @param yPos the new y position
+     * @param location the new location
      */
-    public void moveTo(int x, int y, Location location) {
-        this.x = x;
-        this.y = y;
+    public void moveTo(int xPos, int yPos, Location location) {
+        this.xPos = xPos;
+        this.yPos = yPos;
         this.location = location;
+    }
+
+    /**
+     * Update the position of this card, without updating its size.
+     * 
+     * @param xPos the new x position
+     * @param yPos the new y position
+     */
+    public void setPos(int xPos, int yPos) {
+        // Call method of same name with current length values
+        setPos(xPos, yPos, xLength, yLength);
+    }
+
+    /**
+     * Update the position and size of this card.
+     * 
+     * @param xPos the new x position
+     * @param yPos the new y position
+     * @param xLength the new horizontal length
+     * @param yLength the new vertical length
+    */
+    public void setPos(int xPos, int yPos, int xLength, int yLength) {
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.xLength = xLength;
+        this.yLength = yLength;
     }
 
     @Override
@@ -194,6 +232,14 @@ public class GameCard implements Comparable<GameCard> {
         attack = refCard.getAttack();
         health = refCard.getHealth();
         maxHealth = refCard.getHealth();
+        if (refCard.getSize() == null) {
+            xLength = 1;
+            yLength = 1;
+        } else {
+            // REVIEW initial rotation may be arbitrary
+            xLength = refCard.getSize().get(0);
+            yLength = refCard.getSize().get(1);
+        }
         attachedCards = new HashMap<>();
         counters = new HashMap<>();
         attachedTo = null;
