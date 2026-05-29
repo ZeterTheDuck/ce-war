@@ -2,15 +2,16 @@ package com.cewar.controllers;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cewar.model.entity.Card;
-import com.cewar.repositories.CardRepository;
+import com.cewar.services.CardService;
 import com.cewar.util.CardReader;
+
+import jakarta.persistence.EntityNotFoundException;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class CardController {
 
     @Autowired
-    private CardRepository cardRepository;
+    private CardService cardService;
 
     /**
      * Gets all cards
@@ -32,7 +33,7 @@ public class CardController {
      */
     @GetMapping()
     public Iterable<Card> getAllCards() {
-        return cardRepository.findAll();
+        return cardService.getAll();
     }
 
     /**
@@ -54,8 +55,8 @@ public class CardController {
      */
     private Card getCard(String cardId) {
         try {
-            return cardRepository.findById(cardId).get();
-        } catch (NoSuchElementException e) {
+            return cardService.getById(cardId);
+        } catch (EntityNotFoundException e) {
             return null; // REVIEW temporary fix, eventually the webpage should return a proper error
         }
     }
@@ -78,7 +79,7 @@ public class CardController {
 
         List<Card> allCards = CardReader.readCards();
 
-        cardRepository.saveAll(allCards);
+        cardService.saveAll(allCards);
 
         return getAllCards();
     }

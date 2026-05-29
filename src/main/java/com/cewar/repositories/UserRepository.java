@@ -1,5 +1,7 @@
 package com.cewar.repositories;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.cewar.model.entity.User;
@@ -14,7 +16,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @param username
      * @return
      */
-    User findByUsernameIgnoreCase(String username);
+    Optional<User> findByUsernameIgnoreCase(String username);
 
     /**
      * Finds a User corresponding to a given username
@@ -24,9 +26,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @param username
      * @return
      */
-    User findByUsername(String username);
+    Optional<User> findByUsername(String username);
 
-    User findById(long id);
+    Optional<User> findById(long id);
 
-    User findByEmail(String email);
+    Optional<User> findByEmail(String email);
 }

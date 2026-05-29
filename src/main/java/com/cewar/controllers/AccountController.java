@@ -19,7 +19,7 @@ import com.cewar.model.entity.UserCard;
 import com.cewar.model.entity.UserDeck;
 import com.cewar.model.entity.UserInfo;
 import com.cewar.model.session.FilteredCardCollection;
-import com.cewar.repositories.UserRepository;
+import com.cewar.services.UserService;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -37,7 +37,7 @@ public class AccountController {
     private final AdminController adminController;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     AccountController(AdminController adminController) {
         this.adminController = adminController;
@@ -58,7 +58,7 @@ public class AccountController {
      */
     @GetMapping("/inventory")
     public String getCardIndex(Model model) {
-        User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        User user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
 
         FilteredCardCollection fcc = new FilteredCardCollection(user.getInventoryAsCards(), FilteredCardCollection.SortType.ARCHETYPE);
         model.addAttribute("cardDataArr", fcc.toArray());
@@ -72,7 +72,7 @@ public class AccountController {
      * @return
      */
     private UserInfo getPublicUserInfo(String username) {
-       return userRepository.findByUsername(username).getInfo();
+       return userService.getByUsername(username).getInfo();
 
        // REVIEW html may not be able to access methods inside UserInfo to find username and number of cards
     }
@@ -86,7 +86,7 @@ public class AccountController {
      */
     @GetMapping("/deck")
     public String getDeck(@RequestParam(required = false) Long id, Model model) {
-        User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        User user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
 
         if (id == null) {
             // If deck ID is not provided, return the deck manager for this user
@@ -142,7 +142,7 @@ public class AccountController {
     @PostMapping("/deck")
     public ResponseEntity<?> postDeck(@RequestBody @Valid DeckDto deckDto, Model model) {
         // Validate Dto, then apply changes
-        User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        User user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         Collection<UserDeck> allDecks = user.getDecks();
 
         // TODO also ensure that there is exactly 1 God card in the deck
@@ -183,7 +183,7 @@ public class AccountController {
                     deck.setContents(newDeckContents);
                     deck.setName(deckDto.getName());
                     try {
-                        userRepository.save(user);
+                        userService.save(user);
                         return ResponseEntity.ok().build();
                     } catch (Exception e) {
                         // In case deck failed to save
@@ -210,7 +210,7 @@ public class AccountController {
      */
     @PostMapping("/newdeck")
     public ResponseEntity<?> newDeck(Model model) {
-        User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        User user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
 
         // Attempt to make a new deck
         int newNameAttempt = 0;
@@ -247,7 +247,7 @@ public class AccountController {
 
         // Create a new deck using the new name
         user.getDecks().add(new UserDeck(newName, user));
-        userRepository.save(user);
+        userService.save(user);
         String deckId = "";
         for (UserDeck deck : user.getDecks()) {
             if (deck.getName().equals(newName)) {
