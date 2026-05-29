@@ -322,6 +322,8 @@
                     cardResults.append(createCard(card));
                 });
 
+                addSelectedCardClick();
+
                 document.dispatchEvent(cardsRendered);
 
                 // Old unused code
@@ -361,6 +363,23 @@
                 return clone;
             }
 
+            // Gives all cards an event handler to detect being clicked and update selected card display
+            function addSelectedCardClick() {
+                $(".card-simple").on("click", function () {
+                    const clickedCard = $(this);
+
+                    const cardID = clickedCard.attr("class").split(" ")[1];
+
+                    // console.log(`Card with ID ${cardID} has been clicked`);
+
+                    srcCardList.forEach(card => {
+                        if(card.id === cardID) {
+                            formatCardDiv(card, $(".selected-card").find(".card-table"));
+                        }
+                    });
+                });
+            }
+
             // Div containing all of the cards displayed
             const cardResults = $(".card-results");
 
@@ -382,20 +401,6 @@
             $(document).ready(function() {
                 // Manually refresh cards
                 $("#filter-form-submit").click();
-
-                $(".card-simple").on("click", function () {
-                    const clickedCard = $(this);
-
-                    const cardID = clickedCard.attr("class").split(" ")[1];
-
-                    // console.log(`Card with ID ${cardID} has been clicked`);
-
-                    srcCardList.forEach(card => {
-                        if(card.id === cardID) {
-                            formatCardDiv(card, $(".selected-card").find(".card-table"));
-                        }
-                    });
-                });
             })
             /*]]>*/
         </script>
