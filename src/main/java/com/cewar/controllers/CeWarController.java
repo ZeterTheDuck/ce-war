@@ -29,7 +29,7 @@ import com.cewar.model.entity.UserDeck;
 import com.cewar.model.session.FilteredCardCollection;
 import com.cewar.model.session.PackGenerator;
 import com.cewar.model.session.PackGenerator.*;
-import com.cewar.repositories.CardRepository;
+import com.cewar.services.CardService;
 import com.cewar.services.UserService;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -57,7 +57,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class CeWarController {
 
     @Autowired
-    private CardRepository cardRepository;
+    private CardService cardService;
 
     @Autowired
     private UserService userService;
@@ -141,7 +141,7 @@ public class CeWarController {
      */
     @GetMapping("/card")
     public String getCardIndex(Model model) {
-        FilteredCardCollection fcc = new FilteredCardCollection(cardRepository.findAll(), FilteredCardCollection.SortType.ARCHETYPE);
+        FilteredCardCollection fcc = new FilteredCardCollection(cardService.getAll(), FilteredCardCollection.SortType.ARCHETYPE);
         model.addAttribute("cardDataArr", fcc.toArray());
         return "database";
     }
@@ -185,7 +185,7 @@ public class CeWarController {
         // Collect generated cards, given POST request parameters
         List<CardDto> packOutput = new ArrayList<>();
         try {
-            packOutput = PackGenerator.generate(Pack.valueOf(packType), cardRepository.findAll());
+            packOutput = PackGenerator.generate(Pack.valueOf(packType), cardService.getAll());
         } catch (UnexpectedException e) { // These should never happen
             // If packtype is invalid. Should not happen, because users pick from a dropdown
             e.printStackTrace();
@@ -224,7 +224,7 @@ public class CeWarController {
      */
     @GetMapping("/write")
     public String getWritePage(Model model) {
-        FilteredCardCollection fcc = new FilteredCardCollection(cardRepository.findAll(), FilteredCardCollection.SortType.ARCHETYPE);
+        FilteredCardCollection fcc = new FilteredCardCollection(cardService.getAll(), FilteredCardCollection.SortType.ARCHETYPE);
         model.addAttribute("cardDataArr", fcc.toArray());
         return "writeDatabase";
     }

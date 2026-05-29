@@ -7,7 +7,7 @@ import com.cewar.enums.Authority;
 import com.cewar.model.dtos.CardDto;
 import com.cewar.model.entity.User;
 import com.cewar.model.entity.UserCard;
-import com.cewar.repositories.CardRepository;
+import com.cewar.services.CardService;
 import com.cewar.services.UserService;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -44,7 +44,7 @@ public class UserApiController {
     private UserService userService;
 
     @Autowired
-    private CardRepository cardRepository;
+    private CardService cardService;
     
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -142,7 +142,7 @@ public class UserApiController {
             || user.getAuthorities().contains(new SimpleGrantedAuthority(Authority.WRITE.getAuthority()))) {
             try {
                 // Add the card to the user's inventory
-                user.getInventory().add(new UserCard(user, new CardDto(cardRepository.findById(cardId).get(), null, false, false)));
+                user.getInventory().add(new UserCard(user, new CardDto(cardService.getById(cardId), null, false, false)));
                 userService.save(user);
                 return new ResponseEntity<>(HttpStatus.OK);
             } catch (Exception e) {
