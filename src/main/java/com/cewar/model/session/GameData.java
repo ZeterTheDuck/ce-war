@@ -249,7 +249,7 @@ public class GameData {
 
         ArrayList<GameCard> deckContents = new ArrayList<>();
         cards.forEach((id, card) -> {
-            if (card.getUcid().equals(playerId)
+            if (card.getOwnerId().equals(playerId)
                     && card.getLocation().equals(Location.DECK)
                     && (card.getX() > -1 || card.getX() < -2)
                     && (card.getAttachedTo() == null)) {
