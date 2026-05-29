@@ -18,12 +18,12 @@ import jakarta.persistence.EntityNotFoundException;
 public class UserService implements org.springframework.security.core.userdetails.UserDetailsService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository repo;
 
     /* Required for DaoAuthenticationProvider to work, would just be "getUserByUsername" if possible */
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> result = userRepository.findByUsernameIgnoreCase(username);
+        Optional<User> result = repo.findByUsernameIgnoreCase(username);
         if (result.isEmpty()) {
             throw new UsernameNotFoundException("Username not found with username: " + username);
         }
@@ -35,7 +35,7 @@ public class UserService implements org.springframework.security.core.userdetail
     }
 
     public User getByUsernameIgnoreCase(String username) throws UsernameNotFoundException {
-        Optional<User> result = userRepository.findByUsernameIgnoreCase(username);
+        Optional<User> result = repo.findByUsernameIgnoreCase(username);
         if (result.isEmpty()) {
             throw new UsernameNotFoundException("Username not found with username when ignoring case: " + username);
         }
@@ -43,7 +43,7 @@ public class UserService implements org.springframework.security.core.userdetail
     }
 
     public User getByEmail(String email) {
-        Optional<User> result = userRepository.findByEmail(email);
+        Optional<User> result = repo.findByEmail(email);
         if (result.isEmpty()) {
             throw new EntityNotFoundException("User not found with email " + email);
         }
@@ -53,7 +53,7 @@ public class UserService implements org.springframework.security.core.userdetail
     /* SECTION CRUD Operations from CrudRepository */
 
     public User getById(long id) throws EntityNotFoundException {
-        Optional<User> result = userRepository.findById(id);
+        Optional<User> result = repo.findById(id);
         if (result.isEmpty()) {
             throw new EntityNotFoundException("User not found with ID " + id);
         }
@@ -61,19 +61,19 @@ public class UserService implements org.springframework.security.core.userdetail
     }
 
     public Iterable<User> getAll() {
-        return userRepository.findAll();
+        return repo.findAll();
     }
 
     public User save(User user) {
-        return userRepository.save(user);
+        return repo.save(user);
     }
 
     public Iterable<User> saveAll(Iterable<User> users) {
-        return userRepository.saveAll(users);
+        return repo.saveAll(users);
     }
 
     public void delete(User user) {
-        userRepository.delete(user);
+        repo.delete(user);
     }
 
     /* !SECTION */
