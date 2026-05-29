@@ -1,5 +1,6 @@
 package com.cewar.services;
 
+import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,7 @@ public class UserService implements org.springframework.security.core.userdetail
         return result.get();
     }
 
-    public Iterable<User> getAll() {
+    public Collection<User> getAll() {
         return repo.findAll();
     }
 
@@ -68,7 +69,7 @@ public class UserService implements org.springframework.security.core.userdetail
         return repo.save(user);
     }
 
-    public Iterable<User> saveAll(Iterable<User> users) {
+    public Collection<User> saveAll(Iterable<User> users) {
         return repo.saveAll(users);
     }
 
