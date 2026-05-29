@@ -30,7 +30,7 @@ import com.cewar.model.session.FilteredCardCollection;
 import com.cewar.model.session.PackGenerator;
 import com.cewar.model.session.PackGenerator.*;
 import com.cewar.repositories.CardRepository;
-import com.cewar.repositories.UserRepository;
+import com.cewar.services.UserService;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -60,7 +60,7 @@ public class CeWarController {
     private CardRepository cardRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -106,11 +106,11 @@ public class CeWarController {
     public String registerUserAccount(@ModelAttribute("user") @Valid RegisterDto regDto, Model model) {
         Boolean validInfo = true;
         if (!regDto.getEmail().matches("^\\S+@\\S+\\.\\S+$") // Regex to parse email
-            || (userRepository.findByEmail(regDto.getEmail()) != null) ) {
+            || (userService.getByEmail(regDto.getEmail()) != null) ) {
             model.addAttribute("error_email", true);
             validInfo = false;
         }
-        if (userRepository.findByUsernameIgnoreCase(regDto.getUsername()) != null) {
+        if (userService.getByUsernameIgnoreCase(regDto.getUsername()) != null) {
             model.addAttribute("error_username_exists", true);
             validInfo = false;
         }
@@ -125,7 +125,7 @@ public class CeWarController {
 
         if (validInfo) {
             User user = new User(regDto.getUsername(), passwordEncoder.encode(regDto.getPassword()), regDto.getEmail());
-            userRepository.save(user);
+            userService.save(user);
 
             model.addAttribute("post_register", true);
             return "redirect:"; // Redirect to home page
@@ -172,7 +172,7 @@ public class CeWarController {
     public String postCardPack(@ModelAttribute(name = "packTypeDropdown") String packType, Model model) {
 
         // Get user information
-        User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        User user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
 
         // Ensure user has enough points to make this purchase
         if ((packType.equals(PackGenerator.Pack.RARE.toString())  && user.getInfo().getPoints() < 20)
@@ -208,7 +208,7 @@ public class CeWarController {
             user.getInventory().add(new UserCard(user, cardData));
         }
 
-        userRepository.save(user);
+        userService.save(user);
 
 
         // Add String representation of pack output to page attributes as packOutput
@@ -252,17 +252,17 @@ public class CeWarController {
 
     @GetMapping("/test_stuff_1")
     public void testStuff1(Model model) {
-        User user = userRepository.findByUsername("Zeter");
+        User user = userService.getByUsername("Zeter");
         Collection<UserDeck> decks = user.getDecks();
 
         UserDeck newDeck = new UserDeck("test", user);
         decks.add(newDeck);
-        userRepository.save(user);
+        userService.save(user);
     }
 
     @GetMapping("/test_stuff_2")
     public void testStuff2(Model model) {
-        User user = userRepository.findByUsername("Zeter");
+        User user = userService.getByUsername("Zeter");
         Collection<UserDeck> decks = user.getDecks();
 
         UserDeck firstDeck = decks.iterator().next();
@@ -271,7 +271,7 @@ public class CeWarController {
 
         deckContents.add(user.getInventory().iterator().next());
 
-        userRepository.save(user);
+        userService.save(user);
     }
 
     @GetMapping("/rules")

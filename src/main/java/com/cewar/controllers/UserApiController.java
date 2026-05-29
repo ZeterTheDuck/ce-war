@@ -8,9 +8,9 @@ import com.cewar.model.dtos.CardDto;
 import com.cewar.model.entity.User;
 import com.cewar.model.entity.UserCard;
 import com.cewar.repositories.CardRepository;
-import com.cewar.repositories.UserRepository;
+import com.cewar.services.UserService;
 
-import java.util.NoSuchElementException;
+import jakarta.persistence.EntityNotFoundException;
 
 // import java.util.Arrays;
 
@@ -41,7 +41,7 @@ public class UserApiController {
     public final static Long ERROR_ID = 0L;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
     private CardRepository cardRepository;
@@ -61,7 +61,7 @@ public class UserApiController {
         //     new User(1L, "Joe", "Mama")
         //     );
 
-        return userRepository.findAll();
+        return userService.getAll();
     }
 
     /**
@@ -82,13 +82,13 @@ public class UserApiController {
     @PostMapping
     public User createUser(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        return userService.save(user);
     }
 
     @PostMapping("/createAdmin")
     public User createAdmin(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        return userService.save(user);
     }
 
     /**
@@ -108,7 +108,7 @@ public class UserApiController {
         userData.setPassword(user.getPassword());
 
         // Replace User in database with updated one
-        return userRepository.save(userData);
+        return userService.save(userData);
     }
 
     /**
@@ -122,7 +122,7 @@ public class UserApiController {
         // if (userData.getId() == ERROR_ID) {
         //     return userData;
         // }
-        userRepository.delete(userData);
+        userService.delete(userData);
         return ResponseEntity.ok().build();
     }
 
@@ -136,14 +136,14 @@ public class UserApiController {
      */
     @GetMapping("/addCard/{cardId}")
     public ResponseEntity<?> addCard(@PathVariable String cardId) {
-        User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        User user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
 
         if (user.getAuthorities().contains(new SimpleGrantedAuthority(Authority.ADMIN.getAuthority())) 
             || user.getAuthorities().contains(new SimpleGrantedAuthority(Authority.WRITE.getAuthority()))) {
             try {
                 // Add the card to the user's inventory
                 user.getInventory().add(new UserCard(user, new CardDto(cardRepository.findById(cardId).get(), null, false, false)));
-                userRepository.save(user);
+                userService.save(user);
                 return new ResponseEntity<>(HttpStatus.OK);
             } catch (Exception e) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -162,8 +162,8 @@ public class UserApiController {
      */
     private User getUser(Long id) {
         try {
-            return userRepository.findById(id).get();
-        } catch (NoSuchElementException e) {
+            return userService.getById(id);
+        } catch (EntityNotFoundException e) {
             return null; // REVIEW temporary fix, eventually the webpage should return a proper error
         }
     }

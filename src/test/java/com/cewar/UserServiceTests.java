@@ -2,6 +2,7 @@ package com.cewar;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -32,7 +33,7 @@ public class UserServiceTests {
     public void setUp() {
         testUser = new User("testUsername", "testPassword", "testEmail@example.com");
         
-        Mockito.when(userRepository.findByUsernameIgnoreCase(testUser.getUsername())).thenReturn(testUser);
+        Mockito.when(userRepository.findByUsernameIgnoreCase(testUser.getUsername())).thenReturn(Optional.ofNullable(testUser));
     }
 
     /**
