@@ -27,6 +27,12 @@ public class GameCard implements Comparable<GameCard> {
     private final Card refCard;
 
     /**
+     * ID of the owner of this card
+     */
+    @Getter
+    private final Long ownerId;
+
+    /**
      * This card's location on the field.
      * 
      * <p> If this card is attached to another card, this variable shouldn't matter.
@@ -130,6 +136,7 @@ public class GameCard implements Comparable<GameCard> {
     public GameCard(UserCard userCard) {
         refCard = userCard.asCard();
         ucid = userCard.getId();
+        ownerId = userCard.getOwnerId();
         resetData(); // Set data to default
     }
 
