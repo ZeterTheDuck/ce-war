@@ -42,7 +42,7 @@ public class UserService implements org.springframework.security.core.userdetail
         return result.get();
     }
 
-    public User getByEmail(String email) {
+    public User getByEmail(String email) throws EntityNotFoundException {
         Optional<User> result = repo.findByEmail(email);
         if (result.isEmpty()) {
             throw new EntityNotFoundException("User not found with email " + email);
