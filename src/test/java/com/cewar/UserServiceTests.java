@@ -46,6 +46,7 @@ public class UserServiceTests {
         workingCard = cardService.getById("feathery_duck");
 
         Mockito.when(userRepo.findByUsernameIgnoreCase(testUser.getUsername())).thenReturn(Optional.ofNullable(testUser));
+        Mockito.when(userRepo.findByUsername(testUser.getUsername())).thenReturn(Optional.ofNullable(testUser));
         // NOTE this may need to get changed later if this behavior needs to be tested
         Mockito.when(userRepo.save(testUser)).thenReturn(testUser);
     }
@@ -81,7 +82,12 @@ public class UserServiceTests {
      */
     @Test
     public void testAddCard() {
-        assertTrue(userService.addCard(testUser, new CardDto(workingCard, null, false, false)) != null);
+        assertAll(
+            () -> assertTrue(userService.addCard(testUser, new CardDto(workingCard, null, false, false)) != null),
+            () -> assertTrue(userService.addCard(testUser.getUsername(), new CardDto(workingCard, null, false, false)) != null),
+            () -> assertThrows(UsernameNotFoundException.class, 
+                () -> userService.addCard("fakeUsername", new CardDto(workingCard, null, false, false)))
+        );
     }
 
     /**
@@ -97,6 +103,13 @@ public class UserServiceTests {
         };
 
         assertTrue(userService.addCards(testUser, List.of(dtos)) != null);
+
+        assertAll(
+            () -> assertTrue(userService.addCards(testUser, List.of(dtos)) != null),
+            () -> assertTrue(userService.addCards(testUser.getUsername(), List.of(dtos)) != null),
+            () -> assertThrows(UsernameNotFoundException.class, 
+                () -> userService.addCards("fakeUsername", List.of(dtos)))
+        );
     }
 
 
