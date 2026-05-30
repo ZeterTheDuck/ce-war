@@ -1,5 +1,7 @@
 package com.cewar.repositories;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,5 +13,5 @@ import com.cewar.model.entity.Card;
 @Repository
 public interface CardRepository extends JpaRepository<Card, String> {
 
-    Card findCardById(String id);
+    Optional<Card> findCardById(String id);
 }

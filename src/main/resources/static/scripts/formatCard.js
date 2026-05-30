@@ -245,13 +245,14 @@ function formatCardDiv(card, cardDiv) {
 
     // Constructs card description field from multiple data sources.
     function constructCardDesc() {
-        let cardArchetypes = "";
+        let cardArchetypesString = "";
+        let cardArchetypes = [];
         if (card.archetypes.length > 0) {
             // Format archetypes to be lowercase, since the enums are declared as uppercase
             for (let i = 0; i < card.archetypes.length; i++) {
-                card.archetypes[i] = card.archetypes[i].charAt(0) + card.archetypes[i].slice(1).toLowerCase();
+                cardArchetypes[i] = card.archetypes[i].charAt(0) + card.archetypes[i].slice(1).toLowerCase();
             }
-            cardArchetypes = "<em>" + card.archetypes.join(", ") + "</em><br>";
+            cardArchetypesString = "<em>" + cardArchetypes.join(", ") + "</em><br>";
         }
         let cardMaterials = "";
         if (card.materials.length > 0) {
@@ -267,7 +268,7 @@ function formatCardDiv(card, cardDiv) {
 
         let cardEffect = formatEffect(card.effect);
 
-        return cardArchetypes + cardMaterials + cardEffect + cardFlavorText;
+        return cardArchetypesString + cardMaterials + cardEffect + cardFlavorText;
     }
     // !SECTION
 }

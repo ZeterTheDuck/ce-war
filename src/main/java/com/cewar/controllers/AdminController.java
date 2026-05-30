@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cewar.model.entity.User;
-import com.cewar.repositories.UserRepository;
+import com.cewar.services.UserService;
 
 /**
  * Controller covering administrator methods in the administrator dashboard. 
@@ -26,7 +26,7 @@ public class AdminController {
     private AuthenticationManager authManager;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -43,7 +43,7 @@ public class AdminController {
     @ResponseBody
     public User createUser(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        return userService.save(user);
     }
 
     /**

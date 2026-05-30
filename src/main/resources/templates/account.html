@@ -5,8 +5,8 @@
     <head>
         <meta charset="utf-8" />
         <title>CE War - Account</title>
-        <link rel="stylesheet" type="text/css" th:href="@{style.css}">
-        <link rel="icon" type="image/png" th:href="@{images/logo.png}">
+        <link rel="stylesheet" type="text/css" th:href="@{~/styles/style.css}">
+        <link rel="icon" type="image/png" th:href="@{~/images/logo.png}">
     </head>
     <body>
         <!-- Replace this item with the container located at resources/templates/fragments/header that has the tag "th:fragment="header"" -->
@@ -27,7 +27,7 @@
         </main>
         <section id="account-nav">
             <a id="account-store-button" href="/pack"><p>Store</p></a>
-            <a id="account-online-play-button" href="play.html"><p>Play Online</p></a>
+            <a id="account-online-play-button" href="/play.html"><p>Play Online</p></a>
             <a id="account-card-index-button" href="/account/inventory"><p>Card Manager</p></a>
         </section>
     </body>
