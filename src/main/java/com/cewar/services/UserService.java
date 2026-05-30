@@ -1,5 +1,6 @@
 package com.cewar.services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.cewar.model.dtos.CardDto;
 import com.cewar.model.entity.User;
 import com.cewar.model.entity.UserCard;
 import com.cewar.model.entity.UserDeck;
@@ -101,6 +103,64 @@ public class UserService implements org.springframework.security.core.userdetail
             throw new EntityNotFoundException("Deck not found with ID " + id);
         }
         return result.get();
+    }
+
+    /**
+     * Creates and adds a card to a user's inventory
+     * 
+     * @param userId - the User ID of the owner
+     * @param cardData - the data used to create a new UserCard
+     * @return the new UserCard, if successful. If not, null will be returned and nothing will be saved.
+     */
+    public UserCard addCard(long userId, CardDto cardData) throws EntityNotFoundException {
+        Optional<User> result = userRepo.findById(userId);
+        if (result.isEmpty()) {
+            throw new EntityNotFoundException("User not found with ID " + userId);
+        }
+        User owner = result.get();
+
+        UserCard newCard = new UserCard(owner, cardData);
+        
+        // Try to add card to inventory
+        if (owner.getInventory().add(newCard)) {
+            userRepo.save(owner);
+            return newCard;
+        } else {
+            // Something went wrong, and the card could not be added properly
+            return null;
+        }
+    }
+
+    /**
+     * Creates and adds several cards to a user's inventory
+     * 
+     * @param userId - the User ID of the owner
+     * @param cardDataCollection - a collection of data used to create new UserCards
+     * @return A collection of UserCards if successful. If not, null will be returned and nothing will be saved.
+     */
+    public Collection<UserCard> addCards(long userId, Collection<CardDto> cardDataCollection) throws EntityNotFoundException {
+        Optional<User> result = userRepo.findById(userId);
+        if (result.isEmpty()) {
+            throw new EntityNotFoundException("User not found with ID " + userId);
+        }
+        User owner = result.get();
+
+        ArrayList<UserCard> output = new ArrayList<>();
+
+        for (CardDto cardData : cardDataCollection) {
+            UserCard newCard = new UserCard(owner, cardData);
+            
+            // Try to add card to inventory
+            if (owner.getInventory().add(newCard)) {
+                output.add(newCard);
+            } else {
+                // Something went wrong, and the card could not be added properly
+                return null;
+            }
+        }
+        // All cards added properly
+        userRepo.save(owner);
+        return output;
     }
 
     /* !SECTION */
