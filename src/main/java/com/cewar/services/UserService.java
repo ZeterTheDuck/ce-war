@@ -218,7 +218,7 @@ public class UserService implements org.springframework.security.core.userdetail
      * @param cardDataCollection - a collection of data used to create new UserCards
      * @return A collection of UserCards if successful. If not, null will be returned and nothing will be saved.
      */
-    public Collection<UserCard> addCards(User user, Collection<CardDto> cardDataCollection) {
+    public Collection<UserCard> addManyCards(User user, Collection<CardDto> cardDataCollection) {
         ArrayList<UserCard> output = new ArrayList<>();
 
         for (CardDto cardData : cardDataCollection) {
@@ -247,12 +247,12 @@ public class UserService implements org.springframework.security.core.userdetail
      * 
      * @see #addCards(User, Collection)
      */
-    public Collection<UserCard> addCards(String username, Collection<CardDto> cardDataCollection) throws UsernameNotFoundException{
+    public Collection<UserCard> addManyCards(String username, Collection<CardDto> cardDataCollection) throws UsernameNotFoundException{
         Optional<User> result = userRepo.findByUsername(username);
         if (result.isEmpty()) {
             throw new UsernameNotFoundException("User not found with username " + username);
         }
-        return addCards(result.get(), cardDataCollection);
+        return addManyCards(result.get(), cardDataCollection);
     }
 
     /**
@@ -271,7 +271,7 @@ public class UserService implements org.springframework.security.core.userdetail
      * @param cards - a collection of cards to save
      * @return a collection of the new instances of those saved cards
      */
-    public Collection<UserCard> saveCards(Collection<UserCard> cards) {
+    public Collection<UserCard> saveManyCards(Collection<UserCard> cards) {
         return cardRepo.saveAll(cards);
     }
 
