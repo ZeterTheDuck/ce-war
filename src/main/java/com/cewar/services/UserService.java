@@ -94,19 +94,8 @@ public class UserService implements org.springframework.security.core.userdetail
     }
 
     /* !SECTION */
-    /* !SECTION */
 
-    /* SECTION UserCard Repository Methods */
-
-    public UserCard getCardById(long id) throws EntityNotFoundException {
-        Optional<UserCard> result = cardRepo.findById(id);
-        if (result.isEmpty()) {
-            throw new EntityNotFoundException("Deck not found with ID " + id);
-        }
-        return result.get();
-    }
-
-
+    
     /**
      * Creates and adds a card to a user's inventory
      * 
@@ -171,7 +160,7 @@ public class UserService implements org.springframework.security.core.userdetail
         return output;
     }
 
-        /**
+    /**
      * Creates and adds several cards to a user's inventory
      * 
      * @param username - the username of the user to add cards to
@@ -240,6 +229,18 @@ public class UserService implements org.springframework.security.core.userdetail
             throw new UsernameNotFoundException("User not found with username " + username);
         }
         return getUserInventoryAsCards(result.get());
+    }
+
+    /* !SECTION */
+
+    /* SECTION UserCard Repository Methods */
+
+    public UserCard getCardById(long id) throws EntityNotFoundException {
+        Optional<UserCard> result = cardRepo.findById(id);
+        if (result.isEmpty()) {
+            throw new EntityNotFoundException("Deck not found with ID " + id);
+        }
+        return result.get();
     }
 
     /* !SECTION */
