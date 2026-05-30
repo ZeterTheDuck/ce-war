@@ -95,89 +95,6 @@ public class UserService implements org.springframework.security.core.userdetail
 
     /* !SECTION */
 
-    
-    /**
-     * Creates and adds a card to a user's inventory
-     * 
-     * @param user - the user to add a card to
-     * @param cardData - the data used to create a new UserCard
-     * @return the new UserCard, if successful. If not, null will be returned and nothing will be saved.
-     */
-    public UserCard addCard(User user, CardDto cardData) {
-        UserCard newCard = new UserCard(user, cardData);
-        
-        // Try to add card to inventory
-        if (user.getInventory().add(newCard)) {
-            userRepo.save(user);
-            return newCard;
-        } else {
-            // Something went wrong, and the card could not be added properly
-            return null;
-        }
-    }
-
-    /**
-     * Creates and adds a card to a user's inventory
-     * 
-     * @param username - the username of the owner
-     * @param cardData - the data used to create a new UserCard
-     * @return the new UserCard, if successful. If not, null will be returned and nothing will be saved.
-     * @throws UsernameNotFoundException if no user exists with that username
-     * 
-     * @see #addCard(User, CardDto)
-     */
-    public UserCard addCard(String username, CardDto cardData) throws UsernameNotFoundException {
-        Optional<User> result = userRepo.findByUsername(username);
-        if (result.isEmpty()) {
-            throw new UsernameNotFoundException("User not found with username " + username);
-        }
-        return addCard(result.get(), cardData);
-    }
-
-    /**
-     * Creates and adds several cards to a user's inventory
-     * 
-     * @param user - the user to add cards to
-     * @param cardDataCollection - a collection of data used to create new UserCards
-     * @return A collection of UserCards if successful. If not, null will be returned and nothing will be saved.
-     */
-    public Collection<UserCard> addCards(User user, Collection<CardDto> cardDataCollection) {
-        ArrayList<UserCard> output = new ArrayList<>();
-
-        for (CardDto cardData : cardDataCollection) {
-            UserCard newCard = new UserCard(user, cardData);
-            
-            // Try to add card to inventory
-            if (user.getInventory().add(newCard)) {
-                output.add(newCard);
-            } else {
-                // Something went wrong, and the card could not be added properly
-                return null;
-            }
-        }
-        // All cards added properly
-        userRepo.save(user);
-        return output;
-    }
-
-    /**
-     * Creates and adds several cards to a user's inventory
-     * 
-     * @param username - the username of the user to add cards to
-     * @param cardDataCollection - a collection of data used to create new UserCards
-     * @return A collection of UserCards if successful. If not, null will be returned and nothing will be saved.
-     * @throws UsernameNotFoundException if no user exists with that username
-     * 
-     * @see #addCards(User, Collection)
-     */
-    public Collection<UserCard> addCards(String username, Collection<CardDto> cardDataCollection) throws UsernameNotFoundException{
-        Optional<User> result = userRepo.findByUsername(username);
-        if (result.isEmpty()) {
-            throw new UsernameNotFoundException("User not found with username " + username);
-        }
-        return addCards(result.get(), cardDataCollection);
-    }
-
     /**
      * Gets all UserCards owned by a user
      * 
@@ -247,6 +164,108 @@ public class UserService implements org.springframework.security.core.userdetail
             throw new EntityNotFoundException("Deck not found with ID " + id);
         }
         return result.get();
+    }
+
+        /**
+     * Creates and adds a card to a user's inventory. Then saves the new card and the user.
+     * 
+     * @param user - the user to add a card to
+     * @param cardData - the data used to create a new UserCard
+     * @return the new UserCard, if successful. If not, null will be returned and nothing will be saved.
+     */
+    public UserCard addCard(User user, CardDto cardData) {
+        UserCard newCard = new UserCard(user, cardData);
+        
+        // Try to add card to inventory
+        if (user.getInventory().add(newCard)) {
+            userRepo.save(user);
+            return saveCard(newCard);
+        } else {
+            // Something went wrong, and the card could not be added properly
+            return null;
+        }
+    }
+
+    /**
+     * Creates and adds a card to a user's inventory. Then saves the new card and the user.
+     * 
+     * @param username - the username of the owner
+     * @param cardData - the data used to create a new UserCard
+     * @return the new UserCard, if successful. If not, null will be returned and nothing will be saved.
+     * @throws UsernameNotFoundException if no user exists with that username
+     * 
+     * @see #addCard(User, CardDto)
+     */
+    public UserCard addCard(String username, CardDto cardData) throws UsernameNotFoundException {
+        Optional<User> result = userRepo.findByUsername(username);
+        if (result.isEmpty()) {
+            throw new UsernameNotFoundException("User not found with username " + username);
+        }
+        return addCard(result.get(), cardData);
+    }
+
+    /**
+     * Creates and adds several cards to a user's inventory. Then saves the new cards and the user.
+     * 
+     * @param user - the user to add cards to
+     * @param cardDataCollection - a collection of data used to create new UserCards
+     * @return A collection of UserCards if successful. If not, null will be returned and nothing will be saved.
+     */
+    public Collection<UserCard> addCards(User user, Collection<CardDto> cardDataCollection) {
+        ArrayList<UserCard> output = new ArrayList<>();
+
+        for (CardDto cardData : cardDataCollection) {
+            UserCard newCard = new UserCard(user, cardData);
+            
+            // Try to add card to inventory
+            if (user.getInventory().add(newCard)) {
+                output.add(newCard);
+            } else {
+                // Something went wrong, and the card could not be added properly
+                return null;
+            }
+        }
+        // All cards added properly
+        userRepo.save(user);
+        return cardRepo.saveAll(output);
+    }
+
+    /**
+     * Creates and adds several cards to a user's inventory. Then saves the new cards and the user.
+     * 
+     * @param username - the username of the user to add cards to
+     * @param cardDataCollection - a collection of data used to create new UserCards
+     * @return A collection of UserCards if successful. If not, null will be returned and nothing will be saved.
+     * @throws UsernameNotFoundException if no user exists with that username
+     * 
+     * @see #addCards(User, Collection)
+     */
+    public Collection<UserCard> addCards(String username, Collection<CardDto> cardDataCollection) throws UsernameNotFoundException{
+        Optional<User> result = userRepo.findByUsername(username);
+        if (result.isEmpty()) {
+            throw new UsernameNotFoundException("User not found with username " + username);
+        }
+        return addCards(result.get(), cardDataCollection);
+    }
+
+    /**
+     * Saves a UserCard in the database.
+     * 
+     * @param card - the card to save
+     * @return a new instance of the saved card
+     */
+    public UserCard saveCard(UserCard card) {
+        return cardRepo.save(card);
+    }
+
+    /**
+     * Saves multiple UserCards in the database
+     * 
+     * @param cards - a collection of cards to save
+     * @return a collection of the new instances of those saved cards
+     */
+    public Collection<UserCard> saveCards(Collection<UserCard> cards) {
+        return cardRepo.saveAll(cards);
     }
 
     /* !SECTION */
