@@ -167,6 +167,8 @@ public class UserService implements org.springframework.security.core.userdetail
      * @param cardDataCollection - a collection of data used to create new UserCards
      * @return A collection of UserCards if successful. If not, null will be returned and nothing will be saved.
      * @throws UsernameNotFoundException if no user exists with that username
+     * 
+     * @see #addCards(User, Collection)
      */
     public Collection<UserCard> addCards(String username, Collection<CardDto> cardDataCollection) throws UsernameNotFoundException{
         Optional<User> result = userRepo.findByUsername(username);
@@ -192,6 +194,8 @@ public class UserService implements org.springframework.security.core.userdetail
      * @param username - the username of the user
      * @return Collection of UserCards owned by a user
      * @throws UsernameNotFoundException if no user exists with that username
+     * 
+     * @see #getUserInventory(User)
      */
     public Collection<UserCard> getUserInventory(String username) throws UsernameNotFoundException {
         Optional<User> result = userRepo.findByUsername(username);
@@ -222,6 +226,8 @@ public class UserService implements org.springframework.security.core.userdetail
      * @param username - the username of the user
      * @return Collection of Cards representing cards owned by the user
      * @throws UsernameNotFoundException if no user exists with that username
+     * 
+     * @see #getUserInventoryAsCards(User)
      */
     public Collection<Card> getUserInventoryAsCards(String username) throws UsernameNotFoundException {
         Optional<User> result = userRepo.findByUsername(username);
