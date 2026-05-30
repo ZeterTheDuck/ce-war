@@ -201,7 +201,7 @@ public class CeWarController {
             user.getInfo().setPoints(user.getInfo().getPoints() - 10);
         }
 
-        Collection<UserCard> cardList = userService.addCards(user.getId(), packOutput);
+        Collection<UserCard> cardList = userService.addCards(user, packOutput);
         if (cardList == null) {
             /* Adding cards failed to happen for some reason
                 Abort and return nothing. Nothing will be saved. */ 
