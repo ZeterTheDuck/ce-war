@@ -275,6 +275,22 @@ public class UserService implements org.springframework.security.core.userdetail
         return cardRepo.saveAll(cards);
     }
 
+    /**
+     * Adds a card to a deck, then saves both.
+     * 
+     * @param cardId - ID of the card
+     * @param deckId - ID of the deck
+     * @throws EntityNotFoundException if either the card or deck are not found with their respective ID
+     */
+    public void addCardtoDeck(long cardId, long deckId) throws EntityNotFoundException {
+        UserCard card = getCardById(cardId);
+        UserDeck deck = getDeckById(deckId);
+
+        deck.getContents().add(card);
+        saveCard(card);
+        saveDeck(deck);
+    }
+
     /* !SECTION */
 
     /* SECTION UserDeck Repository Methods */
