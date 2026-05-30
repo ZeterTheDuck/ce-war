@@ -43,14 +43,11 @@ public class UserServiceTests {
     @BeforeEach
     public void setUp() {
         testUser = new User("testUsername", "testPassword", "testEmail@example.com");
-        testUserId = 67L;
         workingCard = cardService.getById("feathery_duck");
 
         Mockito.when(userRepo.findByUsernameIgnoreCase(testUser.getUsername())).thenReturn(Optional.ofNullable(testUser));
         // NOTE this may need to get changed later if this behavior needs to be tested
         Mockito.when(userRepo.save(testUser)).thenReturn(testUser);
-        Mockito.when(userRepo.findById(testUserId.longValue())).thenReturn(Optional.ofNullable(testUser));
-
     }
 
     /**
@@ -84,7 +81,7 @@ public class UserServiceTests {
      */
     @Test
     public void testAddCard() {
-        assertTrue(userService.addCard(testUserId, new CardDto(workingCard, null, false, false)) != null);
+        assertTrue(userService.addCard(testUser, new CardDto(workingCard, null, false, false)) != null);
     }
 
     /**
@@ -99,7 +96,7 @@ public class UserServiceTests {
             new CardDto(workingCard, null, false, false)
         };
 
-        assertTrue(userService.addCards(testUserId, List.of(dtos)) != null);
+        assertTrue(userService.addCards(testUser, List.of(dtos)) != null);
     }
 
 
