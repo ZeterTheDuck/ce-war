@@ -294,6 +294,16 @@ public class UserService implements org.springframework.security.core.userdetail
         return result.get();
     }
 
+    /**
+     * Saves a UserDeck in the database.
+     * 
+     * @param deck - the deck to save
+     * @return a new instance of the saved deck
+     */
+    public UserDeck saveDeck(UserDeck deck) {
+        return deckRepo.save(deck);
+    }
+
     /* !SECTION */
 
 }
