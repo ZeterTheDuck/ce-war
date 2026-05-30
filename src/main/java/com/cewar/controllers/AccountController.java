@@ -58,9 +58,9 @@ public class AccountController {
      */
     @GetMapping("/inventory")
     public String getCardIndex(Model model) {
-        User user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        FilteredCardCollection fcc = new FilteredCardCollection(user.getInventoryAsCards(), FilteredCardCollection.SortType.ARCHETYPE);
+        FilteredCardCollection fcc = new FilteredCardCollection(userService.getUserInventoryAsCards(username), FilteredCardCollection.SortType.ARCHETYPE);
         model.addAttribute("cardDataArr", fcc.toArray());
         return "inventory";
     }
@@ -106,7 +106,7 @@ public class AccountController {
                     // Deck ID requested belongs to this user
 
                     // Get a list of all cards Player owns
-                    FilteredCardCollection fcc = new FilteredCardCollection(user.getInventoryAsCards(), FilteredCardCollection.SortType.ARCHETYPE);
+                    FilteredCardCollection fcc = new FilteredCardCollection(userService.getUserInventoryAsCards(user), FilteredCardCollection.SortType.ARCHETYPE);
                     model.addAttribute("cardDataArr", fcc.toArray());
 
                     // Create new DeckDto and add it as an attribute

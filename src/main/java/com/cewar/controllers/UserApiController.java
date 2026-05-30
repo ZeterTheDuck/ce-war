@@ -141,7 +141,7 @@ public class UserApiController {
             || user.getAuthorities().contains(new SimpleGrantedAuthority(Authority.WRITE.getAuthority()))) {
             try {
                 // Add the card to the user's inventory
-                if (userService.addCard(user.getId(), new CardDto(cardService.getById(cardId), null, false, false)) != null) {
+                if (userService.addCard(user, new CardDto(cardService.getById(cardId), null, false, false)) != null) {
                     return new ResponseEntity<>(HttpStatus.OK);
                 } else {
                     // Throw random error so that code moves on below
