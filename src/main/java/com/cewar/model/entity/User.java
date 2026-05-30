@@ -86,6 +86,8 @@ public class User implements UserDetails {
         this.authority = Authority.authOf(authority.get(0).get("authority").asText());
         this.info = info;
         this.email = email;
+        inventory = new ArrayList<>();
+        decks = new ArrayList<>();
     }
 
     /**
@@ -104,6 +106,8 @@ public class User implements UserDetails {
         authority = Authority.USER;
         info = new UserInfo();
         info.setUsername(username);
+        inventory = new ArrayList<>();
+        decks = new ArrayList<>();
 
         // TODO add default inventory items, like a God card
     }
