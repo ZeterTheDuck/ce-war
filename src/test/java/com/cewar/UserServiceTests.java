@@ -112,5 +112,19 @@ public class UserServiceTests {
         );
     }
 
+    /**
+     * Test that UserService will not throw errors when trying to get a user's inventory
+     */
+    @Test
+    public void testGetUserInventory() {
+        // Add a card to a test user's inventory for testing
+        userService.addCard(testUser, new CardDto(workingCard, null, false, false));
 
+        assertAll(
+            () -> assertDoesNotThrow(() -> userService.getUserInventory(testUser)),
+            () -> assertDoesNotThrow(() -> userService.getUserInventory(testUser.getUsername())),
+            () -> assertDoesNotThrow(() -> userService.getUserInventoryAsCards(testUser)),
+            () -> assertDoesNotThrow(() -> userService.getUserInventoryAsCards(testUser.getUsername()))
+        );
+    }
 }
