@@ -158,6 +158,13 @@ public class UserService implements org.springframework.security.core.userdetail
 
     /* SECTION UserCard Repository Methods */
 
+    /**
+     * Gets a UserCard by its ID.
+     * 
+     * @param id - ID of the card
+     * @return the card
+     * @throws EntityNotFoundException if no card is found with the given ID
+     */
     public UserCard getCardById(long id) throws EntityNotFoundException {
         Optional<UserCard> result = cardRepo.findById(id);
         if (result.isEmpty()) {
@@ -272,6 +279,13 @@ public class UserService implements org.springframework.security.core.userdetail
 
     /* SECTION UserDeck Repository Methods */
 
+    /**
+     * Gets a UserDeck by its ID.
+     * 
+     * @param id - the ID of the deck
+     * @return the deck
+     * @throws EntityNotFoundException if no deck is found with the given ID
+     */
     public UserDeck getDeckById(long id) throws EntityNotFoundException {
         Optional<UserDeck> result = deckRepo.findById(id);
         if (result.isEmpty()) {
