@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.cewar.model.dtos.CardDto;
+import com.cewar.model.entity.Card;
 import com.cewar.model.entity.User;
 import com.cewar.model.entity.UserCard;
 import com.cewar.model.entity.UserDeck;
@@ -105,25 +106,20 @@ public class UserService implements org.springframework.security.core.userdetail
         return result.get();
     }
 
+
     /**
      * Creates and adds a card to a user's inventory
      * 
-     * @param userId - the User ID of the owner
+     * @param user - the user to add a card to
      * @param cardData - the data used to create a new UserCard
      * @return the new UserCard, if successful. If not, null will be returned and nothing will be saved.
      */
-    public UserCard addCard(long userId, CardDto cardData) throws EntityNotFoundException {
-        Optional<User> result = userRepo.findById(userId);
-        if (result.isEmpty()) {
-            throw new EntityNotFoundException("User not found with ID " + userId);
-        }
-        User owner = result.get();
-
-        UserCard newCard = new UserCard(owner, cardData);
+    public UserCard addCard(User user, CardDto cardData) {
+        UserCard newCard = new UserCard(user, cardData);
         
         // Try to add card to inventory
-        if (owner.getInventory().add(newCard)) {
-            userRepo.save(owner);
+        if (user.getInventory().add(newCard)) {
+            userRepo.save(user);
             return newCard;
         } else {
             // Something went wrong, and the card could not be added properly
@@ -132,26 +128,38 @@ public class UserService implements org.springframework.security.core.userdetail
     }
 
     /**
+     * Creates and adds a card to a user's inventory
+     * 
+     * @param username - the username of the owner
+     * @param cardData - the data used to create a new UserCard
+     * @return the new UserCard, if successful. If not, null will be returned and nothing will be saved.
+     * @throws UsernameNotFoundException if no user exists with that username
+     * 
+     * @see #addCard(User, CardDto)
+     */
+    public UserCard addCard(String username, CardDto cardData) throws UsernameNotFoundException {
+        Optional<User> result = userRepo.findByUsername(username);
+        if (result.isEmpty()) {
+            throw new UsernameNotFoundException("User not found with username " + username);
+        }
+        return addCard(result.get(), cardData);
+    }
+
+    /**
      * Creates and adds several cards to a user's inventory
      * 
-     * @param userId - the User ID of the owner
+     * @param user - the user to add cards to
      * @param cardDataCollection - a collection of data used to create new UserCards
      * @return A collection of UserCards if successful. If not, null will be returned and nothing will be saved.
      */
-    public Collection<UserCard> addCards(long userId, Collection<CardDto> cardDataCollection) throws EntityNotFoundException {
-        Optional<User> result = userRepo.findById(userId);
-        if (result.isEmpty()) {
-            throw new EntityNotFoundException("User not found with ID " + userId);
-        }
-        User owner = result.get();
-
+    public Collection<UserCard> addCards(User user, Collection<CardDto> cardDataCollection) {
         ArrayList<UserCard> output = new ArrayList<>();
 
         for (CardDto cardData : cardDataCollection) {
-            UserCard newCard = new UserCard(owner, cardData);
+            UserCard newCard = new UserCard(user, cardData);
             
             // Try to add card to inventory
-            if (owner.getInventory().add(newCard)) {
+            if (user.getInventory().add(newCard)) {
                 output.add(newCard);
             } else {
                 // Something went wrong, and the card could not be added properly
@@ -159,8 +167,79 @@ public class UserService implements org.springframework.security.core.userdetail
             }
         }
         // All cards added properly
-        userRepo.save(owner);
+        userRepo.save(user);
         return output;
+    }
+
+        /**
+     * Creates and adds several cards to a user's inventory
+     * 
+     * @param username - the username of the user to add cards to
+     * @param cardDataCollection - a collection of data used to create new UserCards
+     * @return A collection of UserCards if successful. If not, null will be returned and nothing will be saved.
+     * @throws UsernameNotFoundException if no user exists with that username
+     */
+    public Collection<UserCard> addCards(String username, Collection<CardDto> cardDataCollection) throws UsernameNotFoundException{
+        Optional<User> result = userRepo.findByUsername(username);
+        if (result.isEmpty()) {
+            throw new UsernameNotFoundException("User not found with username " + username);
+        }
+        return addCards(result.get(), cardDataCollection);
+    }
+
+    /**
+     * Gets all UserCards owned by a user
+     * 
+     * @param user - the user
+     * @return Collection of UserCards owned by a user
+     */
+    public Collection<UserCard> getUserInventory(User user) {
+        return user.getInventory();
+    }
+
+    /**
+     * Gets all UserCards owned by a user
+     * 
+     * @param username - the username of the user
+     * @return Collection of UserCards owned by a user
+     * @throws UsernameNotFoundException if no user exists with that username
+     */
+    public Collection<UserCard> getUserInventory(String username) throws UsernameNotFoundException {
+        Optional<User> result = userRepo.findByUsername(username);
+        if (result.isEmpty()) {
+            throw new UsernameNotFoundException("User not found with username " + username);
+        }
+        return result.get().getInventory();
+    }
+
+    /**
+     * Gets all cards owned by a user as {@link Card}s
+     * 
+     * @param user - the user
+     * @return Collection of Cards representing cards owned by the user
+     */
+    public Collection<Card> getUserInventoryAsCards(User user){
+        Collection<UserCard> inventory = getUserInventory(user);
+        Collection<Card> output = new ArrayList<>();
+        for (UserCard card : inventory) {
+            output.add(card.asCard());
+        }
+        return output;
+    }
+
+    /**
+     * Gets all cards owned by a user as {@link Card}s
+     * 
+     * @param username - the username of the user
+     * @return Collection of Cards representing cards owned by the user
+     * @throws UsernameNotFoundException if no user exists with that username
+     */
+    public Collection<Card> getUserInventoryAsCards(String username) throws UsernameNotFoundException {
+        Optional<User> result = userRepo.findByUsername(username);
+        if (result.isEmpty()) {
+            throw new UsernameNotFoundException("User not found with username " + username);
+        }
+        return getUserInventoryAsCards(result.get());
     }
 
     /* !SECTION */

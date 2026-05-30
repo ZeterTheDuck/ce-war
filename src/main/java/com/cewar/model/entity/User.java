@@ -126,17 +126,4 @@ public class User implements UserDetails {
         return Collections.singletonList(new SimpleGrantedAuthority(authority.getAuthority()));
     }
 
-    /**
-     * Gets all cards owned by this user as {@link Card}s
-     * 
-     * @return Collection of Cards representing cards owned by this user
-     */
-    public Collection<Card> getInventoryAsCards() {
-        Collection<Card> output = new ArrayList<>();
-        for (UserCard card : inventory) {
-            output.add(card.asCard());
-        }
-        return output;
-    }
-
 }
