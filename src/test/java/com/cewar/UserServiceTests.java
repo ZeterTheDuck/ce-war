@@ -102,13 +102,13 @@ public class UserServiceTests {
             new CardDto(workingCard, null, false, false)
         };
 
-        assertTrue(userService.addCards(testUser, List.of(dtos)) != null);
+        assertTrue(userService.addManyCards(testUser, List.of(dtos)) != null);
 
         assertAll(
-            () -> assertTrue(userService.addCards(testUser, List.of(dtos)) != null),
-            () -> assertTrue(userService.addCards(testUser.getUsername(), List.of(dtos)) != null),
+            () -> assertTrue(userService.addManyCards(testUser, List.of(dtos)) != null),
+            () -> assertTrue(userService.addManyCards(testUser.getUsername(), List.of(dtos)) != null),
             () -> assertThrows(UsernameNotFoundException.class, 
-                () -> userService.addCards("fakeUsername", List.of(dtos)))
+                () -> userService.addManyCards("fakeUsername", List.of(dtos)))
         );
     }
 
