@@ -30,11 +30,9 @@ public class GameController {
     private GameService gameService;
 
     @PostMapping("/create")
-    public int newGame() {
-        // STUB replace with correct data
-        GameData newGame = new GameData(null, null, 0, 0, 0); // TODO get data from somewhere
-        gameService.put(newGame);
-        return newGame.getId(); // the ID of the created game
+    public String newGame() {
+        // TODO have additional method for custom sizes
+        return gameService.createGame(3,5);
     }
 
     @MessageMapping("/message")   // If message is sent to /message, call this method

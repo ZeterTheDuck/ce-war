@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.Random;
 
 import com.cewar.enums.Location;
-import com.cewar.model.entity.UserDeck;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Covers the per-game data
@@ -16,13 +16,13 @@ import lombok.Getter;
 public class GameData {
 
     @Getter
-    private final int id;
+    private final String id;
 
     /**
      * The IDs of the players
      */
-    @Getter
-    private final Long player1Id, player2Id;
+    @Getter @Setter
+    private Long player1Id, player2Id;
 
     /**
      * A hashmap for all cards in play.
@@ -44,9 +44,7 @@ public class GameData {
      * @param width - the width of the field
      * @param height - the height of the field
      */
-    public GameData(UserDeck p1Deck, UserDeck p2Deck, int id, int width, int height) {
-        this.player1Id = p1Deck.getOwnerId();
-        this.player2Id = p2Deck.getOwnerId();
+    public GameData(String id, int width, int height) {
         this.id = id;
         this.width = width;
         this.height = height;

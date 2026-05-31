@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.springframework.stereotype.Service;
 
 import com.cewar.model.session.GameData;
+import com.cewar.util.GameIdGenerator;
 
 /**
  * A service to manage game objects
@@ -17,7 +18,7 @@ public class GameService {
     /**
      * Games accessed through this service. The key for this map is the game IDs
      */
-    private HashMap<Integer, GameData> games;
+    private HashMap<String, GameData> games;
 
     /**
      * Default constructor.
@@ -32,7 +33,7 @@ public class GameService {
      * @param gameId - the ID of the gameData object to retrieve
      * @return - gameData object associated with the gameId, or null if there is none.
      */
-    public GameData get(int gameId) {
+    public GameData get(String gameId) {
         return games.get(gameId);
     }
 
@@ -45,5 +46,17 @@ public class GameService {
      */
     public void put(GameData newGame) {
         games.put(newGame.getId(), newGame);
+    }
+
+    public String createGame(int width, int height) {
+        String newId = GameIdGenerator.generateId();
+        // In the case of a collision, generate a new ID
+        while(games.containsKey(newId)) {
+            newId = GameIdGenerator.generateId();
+        }
+
+        // Create and map new game
+        games.put(newId, new GameData(newId, width, height));
+        return newId;
     }
 }
