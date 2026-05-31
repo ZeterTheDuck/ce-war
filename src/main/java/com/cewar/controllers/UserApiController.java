@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cewar.enums.Authority;
 import com.cewar.model.dtos.CardDto;
 import com.cewar.model.entity.User;
-import com.cewar.model.entity.UserCard;
 import com.cewar.services.CardService;
 import com.cewar.services.UserService;
 
@@ -142,11 +141,14 @@ public class UserApiController {
             || user.getAuthorities().contains(new SimpleGrantedAuthority(Authority.WRITE.getAuthority()))) {
             try {
                 // Add the card to the user's inventory
-                user.getInventory().add(new UserCard(user, new CardDto(cardService.getById(cardId), null, false, false)));
-                userService.save(user);
-                return new ResponseEntity<>(HttpStatus.OK);
+                if (userService.addCard(user, new CardDto(cardService.getById(cardId), null, false, false)) != null) {
+                    return new ResponseEntity<>(HttpStatus.OK);
+                } else {
+                    // Throw random error so that code moves on below
+                    throw new RuntimeException("UserService failed to create and add card to user inventory with an ID of " + cardId); // This won't show up anywhere
+                }
             } catch (Exception e) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

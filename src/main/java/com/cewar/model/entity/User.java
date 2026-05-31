@@ -86,6 +86,8 @@ public class User implements UserDetails {
         this.authority = Authority.authOf(authority.get(0).get("authority").asText());
         this.info = info;
         this.email = email;
+        inventory = new ArrayList<>();
+        decks = new ArrayList<>();
     }
 
     /**
@@ -104,6 +106,8 @@ public class User implements UserDetails {
         authority = Authority.USER;
         info = new UserInfo();
         info.setUsername(username);
+        inventory = new ArrayList<>();
+        decks = new ArrayList<>();
 
         // TODO add default inventory items, like a God card
     }
@@ -120,19 +124,6 @@ public class User implements UserDetails {
             return Collections.singletonList(new SimpleGrantedAuthority(Authority.NONE.getAuthority()));
         }
         return Collections.singletonList(new SimpleGrantedAuthority(authority.getAuthority()));
-    }
-
-    /**
-     * Gets all cards owned by this user as {@link Card}s
-     * 
-     * @return Collection of Cards representing cards owned by this user
-     */
-    public Collection<Card> getInventoryAsCards() {
-        Collection<Card> output = new ArrayList<>();
-        for (UserCard card : inventory) {
-            output.add(card.asCard());
-        }
-        return output;
     }
 
 }

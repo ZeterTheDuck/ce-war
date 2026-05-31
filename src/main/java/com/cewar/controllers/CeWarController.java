@@ -201,18 +201,21 @@ public class CeWarController {
             user.getInfo().setPoints(user.getInfo().getPoints() - 10);
         }
 
-        ArrayList<Card> cardList = new ArrayList<>();
-
-        for (CardDto cardData : packOutput) {
-            cardList.add(cardData.getCardRef());
-            user.getInventory().add(new UserCard(user, cardData));
+        Collection<UserCard> cardList = userService.addManyCards(user, packOutput);
+        if (cardList == null) {
+            /* Adding cards failed to happen for some reason
+                Abort and return nothing. Nothing will be saved. */ 
+            // TODO add feedback to User that the pack failed to generate
+            return "cardPack";
         }
 
-        userService.save(user);
-
+        ArrayList<Card> output = new ArrayList<>();
+        for (UserCard uCard : cardList) {
+            output.add(uCard.asCard());
+        }
 
         // Add String representation of pack output to page attributes as packOutput
-        model.addAttribute("packOutput", cardList.toArray());
+        model.addAttribute("packOutput", output.toArray());
 
         return "cardPack";
     }
