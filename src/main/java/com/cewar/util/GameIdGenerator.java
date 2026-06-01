@@ -34,7 +34,7 @@ public class GameIdGenerator {
      * Converts a given seed to a game ID, which is a combination of 5 upper-case letters
      * 
      * @param seed - the value to use
-     * @return a String of 5 characters, A-Z
+     * @return a String of characters, A-Z
      */
     public static String generateId(long seed) {
 
