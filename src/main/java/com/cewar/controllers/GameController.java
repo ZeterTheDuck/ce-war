@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.HtmlUtils;
 
 import com.cewar.model.dtos.GameMessageDto;
@@ -32,8 +33,12 @@ public class GameController {
 
     @GetMapping("/create")
     public String newGame() {
-        // TODO have additional method for custom sizes
         return gameService.createGame(3,5);
+    }
+
+    @GetMapping("/create")
+    public String newGame(@RequestParam int width, @RequestParam int height) {
+        return gameService.createGame(width, height);
     }
 
     @MessageMapping("/message")   // If message is sent to /message, call this method
