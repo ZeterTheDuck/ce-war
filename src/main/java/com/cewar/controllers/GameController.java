@@ -22,7 +22,7 @@ import com.cewar.services.GameService;
  * TODO <p> Mappings should be modified to go to something like "/api/game"
  */
 @Controller
-@RequestMapping("/api/game")
+@RequestMapping("/api/v1/games")
 public class GameController {
 
     @Autowired
