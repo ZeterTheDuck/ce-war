@@ -38,8 +38,6 @@ public class GameData {
     /**
      * Constructor
      * 
-     * @param p1Deck
-     * @param p2Deck
      * @param id - a new game ID
      * @param width - the width of the field
      * @param height - the height of the field
