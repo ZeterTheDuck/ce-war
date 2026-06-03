@@ -49,6 +49,16 @@ public class GameData {
     }
 
     /**
+     * Loads a card into play
+     * 
+     * @param card - the card to load
+     * @return true if the card was successfully loaded, or else false
+     */
+    public void loadCard(GameCard card) {
+        cards.put(card.getUcid(), card);
+    }
+
+    /**
      * Moves a card from its current location to another. 
      * 
      * <p> Sets the position to (0,0) when moved
