@@ -13,7 +13,6 @@ import org.springframework.web.util.HtmlUtils;
 import com.cewar.model.dtos.GameMessageDto;
 import com.cewar.model.dtos.GameResponseDto;
 import com.cewar.model.session.GameData;
-import com.cewar.repositories.UserRepository;
 import com.cewar.services.GameService;
 
 /**
@@ -26,7 +25,7 @@ import com.cewar.services.GameService;
 public class GameController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
     private GameService gameService;
