@@ -10,12 +10,8 @@ When a client makes a request to the API, the backend should add it to a queue o
 
 There are numerous endpoints:
 
-- `POST api/v1/games/create`: creates a new game, returns a game ID which the user connects to via websocket.
-  - User 1 ID
-  - User 2 ID
-  - User 1 Deck ID
-  - User 2 Deck ID
-  - *honestly no clue how you're meant to get the other user's ID*
+- `GET api/v1/games/create`: creates a new game, returns a game ID which the user connects to via websocket.
+  - Optional: board width and height
 
 - `POST api/v1/games/{game-id}/card`: sets values for a card. This will probably be the most used endpoint.
   - (required) User-Card ID
