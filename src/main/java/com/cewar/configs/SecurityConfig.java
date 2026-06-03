@@ -40,6 +40,7 @@ public class SecurityConfig {
                 .requestMatchers("/edit").hasRole(Authority.ADMIN.toString())
                 .requestMatchers("/pack").hasRole(Authority.USER.toString())
                 .requestMatchers("/test").hasRole(Authority.USER.toString())
+                .requestMatchers("/api/v1/games/**").hasRole(Authority.USER.toString())
                 .anyRequest().permitAll()) // Permit requests to all other URIs not listed
             .formLogin(formLogin -> formLogin
                 .loginPage("/login")
