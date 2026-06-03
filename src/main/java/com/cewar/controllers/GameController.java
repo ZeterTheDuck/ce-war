@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.util.HtmlUtils;
@@ -29,7 +30,7 @@ public class GameController {
     @Autowired
     private GameService gameService;
 
-    @PostMapping("/create")
+    @GetMapping("/create")
     public String newGame() {
         // TODO have additional method for custom sizes
         return gameService.createGame(3,5);
