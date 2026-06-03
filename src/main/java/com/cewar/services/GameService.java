@@ -48,6 +48,13 @@ public class GameService {
         games.put(newGame.getId(), newGame);
     }
 
+    /**
+     * Creates a new game.
+     * 
+     * @param width - the width of the field, in tiles
+     * @param height - the height of the field, in tiles
+     * @return a 5-character String of letters A-Z, representing a new Game ID
+     */
     public String createGame(int width, int height) {
         String newId = GameIdGenerator.generateId();
         // In the case of a collision, generate a new ID
