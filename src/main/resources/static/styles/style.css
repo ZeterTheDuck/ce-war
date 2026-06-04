@@ -13,14 +13,14 @@
 
 /* used for cards */
 @property --icon-color {
-  syntax: "<color>";
+  syntax: '<color>';
   inherit: false;
   initial-value: var(--action-color);
 }
 
 /* variable way to modify card height */
 @property --card-height {
-  syntax: "<length>";
+  syntax: '<length>';
   inherit: true;
   initial-value: 600px;
 }
@@ -153,10 +153,10 @@ nav a {
 .card-table {
   display: inline-grid;
   grid-template-areas:
-    "header"
-    "art"
-    "desc"
-    "footer";
+    'header'
+    'art'
+    'desc'
+    'footer';
   grid-template-rows: 12% 34% 42% 12%;
   grid-template-columns: 100%;
   width: calc(var(--card-height) * 0.725);
@@ -187,7 +187,7 @@ nav a {
   > .header {
     grid-area: header;
     grid-template-areas:
-      "name rarity";
+      'name rarity';
     grid-template-columns: 80% 20%;
     grid-template-rows: 100%;
     border-bottom: 5px solid black;
@@ -231,7 +231,7 @@ nav a {
 
   > .footer {
     grid-template-areas:
-      "attack center health";
+      'attack center health';
     grid-template-columns: 33% 34% 33%;
     grid-template-rows: 100%;
 

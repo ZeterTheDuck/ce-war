@@ -17,7 +17,7 @@
  */
 function filterCards(cards, filters) {
   var output = [];
-  const textRegex = new RegExp("\\W", "g"); // Same as "a-zA-Z0-9_"
+  const textRegex = new RegExp('\\W', 'g'); // Same as 'a-zA-Z0-9_'
 
 
   // Test each card against filters
@@ -34,12 +34,12 @@ function filterCards(cards, filters) {
     }
 
     // Test Type
-    if (filters.type != "" && !(cards[i].type == filters.type)) {
+    if (filters.type != '' && !(cards[i].type == filters.type)) {
       removeCard = true;
     }
 
     // Test Rarity
-    if (filters.rarity != "" && !(cards[i].rarity == filters.rarity)) {
+    if (filters.rarity != '' && !(cards[i].rarity == filters.rarity)) {
       removeCard = true;
     }
 
@@ -54,11 +54,11 @@ function filterCards(cards, filters) {
     // Test Text
     // This gross formatting is needed because the `` String will count line breaks and indents
     let cardString =
-      `${cards[i].name.replaceAll(textRegex, "")}
-${cards[i].archetypes.toString().replaceAll(textRegex, "")}
-${cards[i].materials.replaceAll(textRegex, "")}
-${cards[i].effect.replaceAll(textRegex, "")}
-${cards[i].flavorText.replaceAll(textRegex, "")}`.toLowerCase();
+      `${cards[i].name.replaceAll(textRegex, '')}
+${cards[i].archetypes.toString().replaceAll(textRegex, '')}
+${cards[i].materials.replaceAll(textRegex, '')}
+${cards[i].effect.replaceAll(textRegex, '')}
+${cards[i].flavorText.replaceAll(textRegex, '')}`.toLowerCase();
 
     if (!cardString.includes(filters.text.toLowerCase())) {
       removeCard = true;
@@ -80,10 +80,10 @@ ${cards[i].flavorText.replaceAll(textRegex, "")}`.toLowerCase();
  */
 function getUcid(cardObj) {
 
-  const UCID_REGEX = new RegExp("\\b(?=\\w)ucid-(-?\\d+)");
+  const UCID_REGEX = new RegExp('\\b(?=\\w)ucid-(-?\\d+)');
 
   try {
-    return cardObj.attr("class").match(UCID_REGEX)[1];
+    return cardObj.attr('class').match(UCID_REGEX)[1];
   } catch {
 
   }
