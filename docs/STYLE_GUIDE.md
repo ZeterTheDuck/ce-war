@@ -1,7 +1,7 @@
 # Style Guide
 Code should focus on readability and clarity.
 
-As a general rule of thumb, class, method, and variable names follow the conventions for whichever language they are in.
+As a general rule of thumb, class, method, and variable names follow the conventions for whichever language they are in. For the most part, refer to [Google's style guides](https://google.github.io/styleguide/)
 
 ## Package Layout
 - Package names should be in lowercase ASCII letters.
@@ -18,7 +18,7 @@ As a general rule of thumb, class, method, and variable names follow the convent
 
 ## HTML
 - File names, class names, and element IDs should follow kebab-case, and be distinct and descriptive.
-  - Avoid common names that could unintentionally overlap with names in other files
+  - Use only lowercase
 - Follow a JavaDoc-style documentation for files
   - This should be in comments, after `!DOCTYPE` but before the opening `<html>` tag.
   - Describe the page's function
@@ -28,12 +28,14 @@ As a general rule of thumb, class, method, and variable names follow the convent
 - "Non-text" tags (e.g. `<div>`, `<form>`) should be on their own line, and not share lines with other tags.
 
 ## CSS
-<!-- TODO -->
+- Avoid using type selectors, rather use classes if possible
+- Use single quotes, rather than double quotes
 
 ## JavaScript
 - Javascript may be written in a `<script>` tag or linked to with a `src` attribute
 - Follow [google's style guide](https://google.github.io/styleguide/jsguide.html#jsdoc) for documentation
 - Indent 2 spaces at a time.
+- Use single quotes, rather than double quotes, when possible
 
 ## Comments
 - This project uses [Comment Anchors](https://marketplace.visualstudio.com/items?itemName=ExodiusStudios.comment-anchors) for comments besides basic code explanation.
