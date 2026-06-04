@@ -33,6 +33,7 @@ As a general rule of thumb, class, method, and variable names follow the convent
 
 ## JavaScript
 - Javascript may be written in a `<script>` tag or linked to with a `src` attribute
+  - Linked externally with a `src` attribute is preferred, but inline javascript is needed for Thymeleaf to function.
 - Follow [google's style guide](https://google.github.io/styleguide/jsguide.html#jsdoc) for documentation
 - Indent 2 spaces at a time.
 - Use single quotes, rather than double quotes, when possible
