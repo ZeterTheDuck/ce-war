@@ -1,417 +1,413 @@
 ﻿<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <title>CE War - Card Display Fragments</title>
     <link rel="stylesheet" type="text/css" th:href="@{~/styles/style.css}">
     <link rel="icon" type="image/png" th:href="@{~/images/logo.png}">
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script th:src="@{~/scripts/search-card-collection.js}"></script>
-</head>
-
-<body>
+  </head>
+  <body>
     <!-- SECTION Card Display -->
     <!-- cardData: JSON object containing the data of this card -->
     <div class="card-table blank-card" th:fragment="card(cardData)">
-        <div class="header dark-color">
-            <div class="name"></div>
-            <img class="rarity">
-        </div>
-        <img class="art">
-        <p class="desc light-color" />
-        <div class="footer dark-color">
-            <div class="attack"></div>
-            <div class="center">
-                CE 2nd
-            </div>
-            <div class="health"></div>
-        </div>
+      <div class="header dark-color">
+        <div class="name"></div>
+        <img class="rarity">
+      </div>
+      <img class="art">
+      <p class="desc light-color" />
+      <div class="footer dark-color">
+        <div class="attack"></div>
+        <div class="center">CE 2nd</div>
+        <div class="health"></div>
+      </div>
 
-        <!-- -->
-        <div class="card-overlay">
-             <!-- Hidden by default -->
-            <img class="card-shine" th:src="@{~/images/cards/card_shine.gif}" alt=""/>
-        </div>
-        <script th:src="@{~/scripts/format-card.js}"></script>
-        <script th:inline="javascript">
-            // Needed for Thymeleaf to be able to run this code
-            /*<![CDATA[*/
+      <!-- Card Overlay-->
+      <div class="card-overlay">
+        <!-- Hidden by default -->
+        <img class="card-shine" th:src="@{~/images/cards/card_shine.gif}" alt="" />
+      </div>
+      <script th:src="@{~/scripts/format-card.js}"></script>
+      <script th:inline="javascript">
+        // Needed for Thymeleaf to be able to run this code
+        /*<![CDATA[*/
 
-            var cardData = /*[[${cardData}]]*/ "";
+        var cardData = /*[[${cardData}]]*/ "";
 
-            formatCardFirst(cardData);
-            /*]]>*/
-        </script>
+        formatCardFirst(cardData);
+        /*]]>*/
+      </script>
     </div> <!-- !SECTION -->
 
     <!-- SECTION Card Simple Display -->
     <!-- NOTE deprecated, changed to be created instead of loading from a fragment  -->
     <!-- cardData: JSON object containing the data of this card -->
     <!-- Same as card, but uses the fullRes image of the card instead.
-        Useful for when many cards are being displayed, or being able to
-        copy text isn't a concern -->
-     <div class="card-simple blank-card" th:fragment="card-simple(cardData)">
-        <img class="card-preview-image"/>
+          Useful for when many cards are being displayed, or being able to
+          copy text isn't a concern -->
+    <div class="card-simple blank-card" th:fragment="card-simple(cardData)">
+      <img class="card-preview-image" />
+      <div class="card-overlay">
+        <!-- Hidden by default -->
+        <img class="card-shine" th:src="@{~/images/cards/card_shine.gif}" alt="">
+      </div>
+      <script th:src="@{~/scripts/format-card.js}"></script>
+      <script th:inline="javascript">
+        // Needed for Thymeleaf to be able to run this code
+        /*<![CDATA[*/
+
+        var cardData = /*[[${cardData}]]*/ "";
+
+        formatSimpleCardFirst(cardData);
+        /*]]>*/
+      </script>
+    </div>
+
+    <!-- Testing using HTML templates instead of thymeleaf -->
+    <template id="card-template">
+      <div class="card-simple blank-card">
+        <img class="card-preview-image" />
         <div class="card-overlay">
-            <!-- Hidden by default -->
-            <img class="card-shine" th:src="@{~/images/cards/card_shine.gif}" alt="">
+          <!-- Hidden by default -->
+          <img class="card-shine" th:src="@{~/images/cards/card_shine.gif}" alt="">
         </div>
-        <script th:src="@{~/scripts/format-card.js}"></script>
-        <script th:inline="javascript">
-            // Needed for Thymeleaf to be able to run this code
-            /*<![CDATA[*/
-
-            var cardData = /*[[${cardData}]]*/ "";
-
-            formatSimpleCardFirst(cardData);
-            /*]]>*/
-        </script>
-     </div>
-
-     <!-- Testing using HTML templates instead of thymeleaf -->
-     <template id="card-template">
-        <div class="card-simple blank-card">
-            <img class="card-preview-image"/>
-            <div class="card-overlay">
-                <!-- Hidden by default -->
-                <img class="card-shine" th:src="@{~/images/cards/card_shine.gif}" alt="">
-            </div>
-        </div>
-     </template> <!-- !SECTION -->
+      </div>
+    </template> <!-- !SECTION -->
 
     <!-- SECTION Card Search -->
     <!-- cardDataArr: array of JSON data for all of the cards to display -->
     <div class="card-search" th:fragment="card-search(cardDataArr)">
 
-        <h1>Filter Selection</h1>
-        <form id="card-filter-form" action="#" method="POST">
-            <div class="checkbox-grid">
-                <label><input type="checkbox" name="archetype" value="STAPLE">Staple</label>
-                <label><input type="checkbox" name="archetype" value="AQUATIC">Aquatic</label>
-                <label><input type="checkbox" name="archetype" value="ARACHNIC">Arachnic</label>
-                <label><input type="checkbox" name="archetype" value="BUGGLE">Buggle</label>
-                <label><input type="checkbox" name="archetype" value="CODED">Coded</label>
-                <label><input type="checkbox" name="archetype" value="DRAGON">Dragon</label>
-                <label><input type="checkbox" name="archetype" value="FEATHERY">Feathery</label>
-                <label><input type="checkbox" name="archetype" value="FORTUNE">Fortune</label>
-                <label><input type="checkbox" name="archetype" value="HUMAN">Human</label>
-                <label><input type="checkbox" name="archetype" value="LIZAR">Lizar</label>
-                <label><input type="checkbox" name="archetype" value="MATERIAL">Material</label>
-                <label><input type="checkbox" name="archetype" value="SKELL">Skell</label>
-                <label><input type="checkbox" name="archetype" value="SLIME">Slime</label>
-                <label><input type="checkbox" name="archetype" value="TAROT">Tarot</label>
-            </div>
-            <div class="checkbox-grid">
-                <label><input type="checkbox" name="archetype" value="INFERIOR">Inferior</label>
-                <label><input type="checkbox" name="archetype" value="SUPERIOR">Superior</label>
-                <label><input type="checkbox" name="archetype" value="ANIMATED">Animated</label>
-                <label><input type="checkbox" name="archetype" value="ANCHORED">Anchored</label>
-                <label><input type="checkbox" name="archetype" value="CONJURED">Conujured</label>
-                <label><input type="checkbox" name="archetype" value="DEPENDENT">Dependent</label>
-                <label><input type="checkbox" name="archetype" value="IMPASSABLE">Impassable</label>
-                <label><input type="checkbox" name="archetype" value="ACCESSIBLE">Accessible</label>
-                <label><input type="checkbox" name="archetype" value="DIRECTIONAL">Directional</label>
-                <label><input type="checkbox" name="archetype" value="AFLOAT">Afloat</label>
-                <label><input type="checkbox" name="archetype" value="EXTRA">Extra</label>
-            </div>
-            <select name="rarity">
-                <option value="">Select Rarity...</option>
-                <option value="COMMON">Common</option>
-                <option value="UNCOMMON">Uncommon</option>
-                <option value="RARE">Rare</option>
-                <option value="ULTRA_RARE">Ultra Rare</option>
-            </select>
-            <select name="type">
-                <option value="">Select Type...</option>
-                <option value="CREATURE">Creature</option>
-                <option value="ACTION">Action</option>
-                <option value="BUILDING">Building</option>
-                <option value="MATERIAL">Material</option>
-                <option value="GOD">God</option>
-                <option value="REPLICA">Replica</option>
-            </select>
-            <div class="checkbox-grid">
-                <label>
-                    <input type="checkbox" name="attribute" value="C1">
-                    <svg class="card-symbol">
-                        <use href="/images/card_symbol.svg#c1" style="--icon-color: var(--action-color);" />
-                    </svg>
-                </label>
-                <label>
-                    <input type="checkbox" name="attribute" value="C2">
-                    <svg class="card-symbol">
-                        <use href="/images/card_symbol.svg#c2" style="--icon-color: var(--action-color);" />
-                    </svg>
-                </label>
-                <label>
-                    <input type="checkbox" name="attribute" value="C3">
-                    <svg class="card-symbol">
-                        <use href="/images/card_symbol.svg#c3" style="--icon-color: var(--action-color);" />
-                    </svg>
-                </label>
-                <label>
-                    <input type="checkbox" name="attribute" value="C4">
-                    <svg class="card-symbol">
-                        <use href="/images/card_symbol.svg#c4" style="--icon-color: var(--action-color);" />
-                    </svg>
-                </label>
-                <label>
-                    <input type="checkbox" name="attribute" value="STAGE">
-                    <svg class="card-symbol">
-                        <use href="/images/card_symbol.svg#stage" style="--icon-color: var(--action-color);" />
-                    </svg>
-                </label>
-                <label>
-                    <input type="checkbox" name="attribute" value="EQUIP">
-                    <svg class="card-symbol">
-                        <use href="/images/card_symbol.svg#equip" style="--icon-color: var(--action-color);" />
-                    </svg>
-                </label>
-            </div>
-            <div>
-                <label>
-                    Text Search
-                    <input type="text" name="text"/>
-                </label>
-            </div>
-            <div>
-                <label>
-                    Merge Cards
-                    <input type="checkbox" name="merge-cards" id="input-merge-cards">
-                </label>
-            </div>
-            <div>
-                <label>
-                    Merge Variants
-                    <input type="checkbox" name="merge-variants" disabled id="input-merge-variants">
-                </label>
-            </div>
-            <input type="submit" value="Apply" id="filter-form-submit">
-        </form>
-
-        <div class="card-results card-container" style="--card-height: 200px">
-            <!-- <th:block th:each="card : ${cardDataArr}">
-                <div th:replace="~{fragments/card :: card-simple(${card})}"></div>
-            </th:block> -->
+      <h1>Filter Selection</h1>
+      <form id="card-filter-form" action="#" method="POST">
+        <div class="checkbox-grid">
+          <label><input type="checkbox" name="archetype" value="STAPLE">Staple</label>
+          <label><input type="checkbox" name="archetype" value="AQUATIC">Aquatic</label>
+          <label><input type="checkbox" name="archetype" value="ARACHNIC">Arachnic</label>
+          <label><input type="checkbox" name="archetype" value="BUGGLE">Buggle</label>
+          <label><input type="checkbox" name="archetype" value="CODED">Coded</label>
+          <label><input type="checkbox" name="archetype" value="DRAGON">Dragon</label>
+          <label><input type="checkbox" name="archetype" value="FEATHERY">Feathery</label>
+          <label><input type="checkbox" name="archetype" value="FORTUNE">Fortune</label>
+          <label><input type="checkbox" name="archetype" value="HUMAN">Human</label>
+          <label><input type="checkbox" name="archetype" value="LIZAR">Lizar</label>
+          <label><input type="checkbox" name="archetype" value="MATERIAL">Material</label>
+          <label><input type="checkbox" name="archetype" value="SKELL">Skell</label>
+          <label><input type="checkbox" name="archetype" value="SLIME">Slime</label>
+          <label><input type="checkbox" name="archetype" value="TAROT">Tarot</label>
         </div>
+        <div class="checkbox-grid">
+          <label><input type="checkbox" name="archetype" value="INFERIOR">Inferior</label>
+          <label><input type="checkbox" name="archetype" value="SUPERIOR">Superior</label>
+          <label><input type="checkbox" name="archetype" value="ANIMATED">Animated</label>
+          <label><input type="checkbox" name="archetype" value="ANCHORED">Anchored</label>
+          <label><input type="checkbox" name="archetype" value="CONJURED">Conujured</label>
+          <label><input type="checkbox" name="archetype" value="DEPENDENT">Dependent</label>
+          <label><input type="checkbox" name="archetype" value="IMPASSABLE">Impassable</label>
+          <label><input type="checkbox" name="archetype" value="ACCESSIBLE">Accessible</label>
+          <label><input type="checkbox" name="archetype" value="DIRECTIONAL">Directional</label>
+          <label><input type="checkbox" name="archetype" value="AFLOAT">Afloat</label>
+          <label><input type="checkbox" name="archetype" value="EXTRA">Extra</label>
+        </div>
+        <select name="rarity">
+          <option value="">Select Rarity...</option>
+          <option value="COMMON">Common</option>
+          <option value="UNCOMMON">Uncommon</option>
+          <option value="RARE">Rare</option>
+          <option value="ULTRA_RARE">Ultra Rare</option>
+        </select>
+        <select name="type">
+          <option value="">Select Type...</option>
+          <option value="CREATURE">Creature</option>
+          <option value="ACTION">Action</option>
+          <option value="BUILDING">Building</option>
+          <option value="MATERIAL">Material</option>
+          <option value="GOD">God</option>
+          <option value="REPLICA">Replica</option>
+        </select>
+        <div class="checkbox-grid">
+          <label>
+            <input type="checkbox" name="attribute" value="C1">
+            <svg class="card-symbol">
+              <use href="/images/card_symbol.svg#c1" style="--icon-color: var(--action-color);" />
+            </svg>
+          </label>
+          <label>
+            <input type="checkbox" name="attribute" value="C2">
+            <svg class="card-symbol">
+              <use href="/images/card_symbol.svg#c2" style="--icon-color: var(--action-color);" />
+            </svg>
+          </label>
+          <label>
+            <input type="checkbox" name="attribute" value="C3">
+            <svg class="card-symbol">
+              <use href="/images/card_symbol.svg#c3" style="--icon-color: var(--action-color);" />
+            </svg>
+          </label>
+          <label>
+            <input type="checkbox" name="attribute" value="C4">
+            <svg class="card-symbol">
+              <use href="/images/card_symbol.svg#c4" style="--icon-color: var(--action-color);" />
+            </svg>
+          </label>
+          <label>
+            <input type="checkbox" name="attribute" value="STAGE">
+            <svg class="card-symbol">
+              <use href="/images/card_symbol.svg#stage" style="--icon-color: var(--action-color);" />
+            </svg>
+          </label>
+          <label>
+            <input type="checkbox" name="attribute" value="EQUIP">
+            <svg class="card-symbol">
+              <use href="/images/card_symbol.svg#equip" style="--icon-color: var(--action-color);" />
+            </svg>
+          </label>
+        </div>
+        <div>
+          <label>
+            Text Search
+            <input type="text" name="text" />
+          </label>
+        </div>
+        <div>
+          <label>
+            Merge Cards
+            <input type="checkbox" name="merge-cards" id="input-merge-cards">
+          </label>
+        </div>
+        <div>
+          <label>
+            Merge Variants
+            <input type="checkbox" name="merge-variants" disabled id="input-merge-variants">
+          </label>
+        </div>
+        <input type="submit" value="Apply" id="filter-form-submit">
+      </form>
 
-        <template id="card-template">
+      <div class="card-results card-container" style="--card-height: 200px">
+        <!-- <th:block th:each="card : ${cardDataArr}">
+                  <div th:replace="~{fragments/card :: card-simple(${card})}"></div>
+              </th:block> -->
+      </div>
+
+      <template id="card-template">
         <div class="card-simple blank-card">
-            <img class="card-preview-image"/>
-            <div class="card-overlay">
-                <!-- Hidden by default -->
-                <img class="card-shine" th:src="@{~/images/cards/card_shine.gif}" alt=""/>
-                <span class="card-quantity"/>
-            </div>
+          <img class="card-preview-image" />
+          <div class="card-overlay">
+            <!-- Hidden by default -->
+            <img class="card-shine" th:src="@{~/images/cards/card_shine.gif}" alt="" />
+            <span class="card-quantity" />
+          </div>
         </div>
-     </template>
+      </template>
 
-        <div class="selected-card" style="--card-height: 500px">
-            <th:block>
-                <div th:replace="~{fragments/card :: card(${cardDataArr[0]})}"></div>
-            </th:block>
-        </div>
+      <div class="selected-card" style="--card-height: 500px">
+        <th:block>
+          <div th:replace="~{fragments/card :: card(${cardDataArr[0]})}"></div>
+        </th:block>
+      </div>
 
-        <script th:inline="javascript">
-            // Needed for Thymeleaf to be able to run this code
-            /*<![CDATA[*/
-            const srcCardList = /*[[${cardDataArr}]]*/[];
+      <script th:inline="javascript">
+        // Needed for Thymeleaf to be able to run this code
+        /*<![CDATA[*/
+        const srcCardList = /*[[${cardDataArr}]]*/[];
 
-            document.getElementById("card-filter-form").addEventListener("submit", function (e) {
-                e.preventDefault(); // Stop form from trying to send its data to the server
+        document.getElementById("card-filter-form").addEventListener("submit", function (e) {
+          e.preventDefault(); // Stop form from trying to send its data to the server
 
-                // Get all filters
-                let formData = new FormData(e.target);
-                let mergeCards = $("#input-merge-cards").is(":checked");
-                let mergeVariants = $("#input-merge-variants").is(":checked");
+          // Get all filters
+          let formData = new FormData(e.target);
+          let mergeCards = $("#input-merge-cards").is(":checked");
+          let mergeVariants = $("#input-merge-variants").is(":checked");
 
-                let filterObj = {
-                    "archetypes": formData.getAll("archetype"),
-                    "type": formData.get("type"),
-                    "rarity": formData.get("rarity"),
-                    "attributes": formData.getAll("attribute"),
-                    "text": formData.get("text"),
-                    "mergeCards": mergeCards,
-                    "mergeVariants": mergeVariants
-                };
+          let filterObj = {
+            "archetypes": formData.getAll("archetype"),
+            "type": formData.get("type"),
+            "rarity": formData.get("rarity"),
+            "attributes": formData.getAll("attribute"),
+            "text": formData.get("text"),
+            "mergeCards": mergeCards,
+            "mergeVariants": mergeVariants
+          };
 
-                updateCards(srcCardList, filterObj);
-            });
+          updateCards(srcCardList, filterObj);
+        });
 
-            function updateCards(cards, filters) {
+        function updateCards(cards, filters) {
 
-                // Clear all cards on the screen
-                $(".card-container").find(".card-simple").remove();
+          // Clear all cards on the screen
+          $(".card-container").find(".card-simple").remove();
 
-                // Get a list of all cards to hide
-                let cardList = filterCards(cards, filters);
+          // Get a list of all cards to hide
+          let cardList = filterCards(cards, filters);
 
-                // Populate card results
-                let loadedCards = [];
+          // Populate card results
+          let loadedCards = [];
 
-                cards.forEach(card => {
-                    if (cardList.includes(card.id)) {
-                        // Skip this card
-                        return;
-                    }
-
-                    if (filters.mergeCards) {
-                        // Check if card is already created
-                        // If so, increment quantity text by 1
-
-                        if (filters.mergeVariants) {
-                            if (loadedCards.includes(`${card.id}`)) {
-                                const card_o = cardResults.find(`.${card.id}`);
-                                if (card_o.find(".card-quantity").text().trim() === "") {
-                                    card_o.find(".card-quantity").text(2);
-                                    card_o.find(".card-quantity").css("visibility", "visible");
-                                } else {
-                                    card_o.find(".card-quantity").text(parseInt(card_o.find(".card-quantity").text()) + 1);
-                                }
-                                card_o.addClass(`ucid-${card.userCardId}`);
-                                return;
-                            }
-                            loadedCards.push(`${card.id}`);
-                            
-                            /* TODO this should also remove any variant attributes from what's displayed. 
-                                That is, not shiny, not promo, and has the default art.
-                                Additionally, make sure that the event for when a card is clicked properly handles this modification. 
-                            */
-
-                        } else {
-                            // Do not merge variants, but merge identical cards
-                            if (loadedCards.includes(`${card.id} ${card.fullResSource} ${card.shiny} ${card.promo}`)) {
-                                // There is already an identical card
-
-                                // Find all cards with the same ID
-                                const cardsToCheck = $(cardResults).find(`.${card.id}`);
-                                cardsToCheck.each(function(index, element) {
-                                    // Each element here has the same ID
-
-                                    if (card.fullResSource == $(this).find(".card-preview-image").attr("src")) {
-                                        // Source image is the same
-
-                                        if (card.shiny === ($(this).find(".card-shine").css("visibility") == "visible")) {
-                                            // Both cards have the same shiny property
-
-                                            if (card.promo === false) {
-                                                // TODO once cards display the promo symbol, check if cards are promo
-                                                // For now, this assumes that all cards aren't promo
-                                                
-                                                // Both cards have the same promo property. These cards should be merged.
-
-                                                if ($(this).find(".card-quantity").text().trim() === "") {
-                                                    $(this).find(".card-quantity").text(2);
-                                                    $(this).find(".card-quantity").css("visibility", "visible");
-                                                } else {
-                                                    $(this).find(".card-quantity").text(parseInt($(this).find(".card-quantity").text()) + 1);
-                                                }
-
-                                                $(this).addClass(`ucid-${card.userCardId}`);
-                                                return;
-                                            }
-                                        }
-                                    }
-                                });
-                                return; // REVIEW make sure that this is correct. Code should only get here if there was a duplicate card.
-                            }
-                            loadedCards.push(`${card.id} ${card.fullResSource} ${card.shiny} ${card.promo}`);
-                        }
-                    }
-                    cardResults.append(createCard(card));
-                });
-
-                addSelectedCardClick();
-
-                document.dispatchEvent(cardsRendered);
-
-                // Old unused code
-                // // Display all cards
-                // $(".hidden").removeClass("hidden");
-
-                // // Hide all cards that are filtered out
-                // cardList.forEach(cardId => {
-                //     $(`.card-simple.${cardId}`).addClass("hidden");
-                // });
+          cards.forEach(card => {
+            if (cardList.includes(card.id)) {
+              // Skip this card
+              return;
             }
 
-            function createCard(cardData) {
-                // Get template element's content
-                const template = $($("#card-template").prop("content"));
+            if (filters.mergeCards) {
+              // Check if card is already created
+              // If so, increment quantity text by 1
 
-                // Create clone of template. This will be returned by this function.
-                const clone = template.clone().find(".card-simple");
-
-                // Prevent this card from being selected again
-                clone.removeClass("blank-card");
-
-                // Add card id to class of the card table for filtering
-                clone.addClass(cardData.id);
-                clone.addClass(`ucid-${cardData.userCardId}`);
-
-                // Set display image
-                clone.find(".card-preview-image").attr("src", cardData.fullResSource);
-
-                // Display shiny div if applicable
-                if (cardData.shiny) {
-                    clone.find(".card-shine").css("visibility", "visible");
+              if (filters.mergeVariants) {
+                if (loadedCards.includes(`${card.id}`)) {
+                  const card_o = cardResults.find(`.${card.id}`);
+                  if (card_o.find(".card-quantity").text().trim() === "") {
+                    card_o.find(".card-quantity").text(2);
+                    card_o.find(".card-quantity").css("visibility", "visible");
+                  } else {
+                    card_o.find(".card-quantity").text(parseInt(card_o.find(".card-quantity").text()) + 1);
+                  }
+                  card_o.addClass(`ucid-${card.userCardId}`);
+                  return;
                 }
+                loadedCards.push(`${card.id}`);
 
-                // TODO implement promo symbol
+                /* TODO this should also remove any variant attributes from what's displayed. 
+                    That is, not shiny, not promo, and has the default art.
+                    Additionally, make sure that the event for when a card is clicked properly handles this modification. 
+                */
 
-                return clone;
-            }
+              } else {
+                // Do not merge variants, but merge identical cards
+                if (loadedCards.includes(`${card.id} ${card.fullResSource} ${card.shiny} ${card.promo}`)) {
+                  // There is already an identical card
 
-            // Gives all cards an event handler to detect being clicked and update selected card display
-            function addSelectedCardClick() {
-                $(".card-simple").on("click", function () {
-                    const clickedCard = $(this);
+                  // Find all cards with the same ID
+                  const cardsToCheck = $(cardResults).find(`.${card.id}`);
+                  cardsToCheck.each(function (index, element) {
+                    // Each element here has the same ID
 
-                    const cardID = clickedCard.attr("class").split(" ")[1];
+                    if (card.fullResSource == $(this).find(".card-preview-image").attr("src")) {
+                      // Source image is the same
 
-                    // console.log(`Card with ID ${cardID} has been clicked`);
+                      if (card.shiny === ($(this).find(".card-shine").css("visibility") == "visible")) {
+                        // Both cards have the same shiny property
 
-                    srcCardList.forEach(card => {
-                        if(card.id === cardID) {
-                            formatCardDiv(card, $(".selected-card").find(".card-table"));
+                        if (card.promo === false) {
+                          // TODO once cards display the promo symbol, check if cards are promo
+                          // For now, this assumes that all cards aren't promo
+
+                          // Both cards have the same promo property. These cards should be merged.
+
+                          if ($(this).find(".card-quantity").text().trim() === "") {
+                            $(this).find(".card-quantity").text(2);
+                            $(this).find(".card-quantity").css("visibility", "visible");
+                          } else {
+                            $(this).find(".card-quantity").text(parseInt($(this).find(".card-quantity").text()) + 1);
+                          }
+
+                          $(this).addClass(`ucid-${card.userCardId}`);
+                          return;
                         }
-                    });
-                });
-            }
-
-            // Div containing all of the cards displayed
-            const cardResults = $(".card-results");
-
-            // Custom event triggered when cards are done being rendered
-            const cardsRendered = new CustomEvent("cardsRendered");
-
-            // Force a valid merge choice (mergeCards=false, mergeVariants=true is not allowed)
-            $("#input-merge-cards").change( function() {
-                if (!$(this).is(":checked")) {
-                    $("#input-merge-variants").prop("checked", false);
-                    $("#input-merge-variants").prop("disabled", true);
-                } else {
-                    $("#input-merge-variants").prop("disabled", false);
+                      }
+                    }
+                  });
+                  return; // REVIEW make sure that this is correct. Code should only get here if there was a duplicate card.
                 }
-            });
+                loadedCards.push(`${card.id} ${card.fullResSource} ${card.shiny} ${card.promo}`);
+              }
+            }
+            cardResults.append(createCard(card));
+          });
 
-            // Add listeners to all cards to update the selected card preview
-            // Executes only when page is fully loaded
-            $(document).ready(function() {
-                // Manually refresh cards
-                $("#filter-form-submit").click();
-            })
-            /*]]>*/
-        </script>
+          addSelectedCardClick();
+
+          document.dispatchEvent(cardsRendered);
+
+          // Old unused code
+          // // Display all cards
+          // $(".hidden").removeClass("hidden");
+
+          // // Hide all cards that are filtered out
+          // cardList.forEach(cardId => {
+          //     $(`.card-simple.${cardId}`).addClass("hidden");
+          // });
+        }
+
+        function createCard(cardData) {
+          // Get template element's content
+          const template = $($("#card-template").prop("content"));
+
+          // Create clone of template. This will be returned by this function.
+          const clone = template.clone().find(".card-simple");
+
+          // Prevent this card from being selected again
+          clone.removeClass("blank-card");
+
+          // Add card id to class of the card table for filtering
+          clone.addClass(cardData.id);
+          clone.addClass(`ucid-${cardData.userCardId}`);
+
+          // Set display image
+          clone.find(".card-preview-image").attr("src", cardData.fullResSource);
+
+          // Display shiny div if applicable
+          if (cardData.shiny) {
+            clone.find(".card-shine").css("visibility", "visible");
+          }
+
+          // TODO implement promo symbol
+
+          return clone;
+        }
+
+        // Gives all cards an event handler to detect being clicked and update selected card display
+        function addSelectedCardClick() {
+          $(".card-simple").on("click", function () {
+            const clickedCard = $(this);
+
+            const cardID = clickedCard.attr("class").split(" ")[1];
+
+            // console.log(`Card with ID ${cardID} has been clicked`);
+
+            srcCardList.forEach(card => {
+              if (card.id === cardID) {
+                formatCardDiv(card, $(".selected-card").find(".card-table"));
+              }
+            });
+          });
+        }
+
+        // Div containing all of the cards displayed
+        const cardResults = $(".card-results");
+
+        // Custom event triggered when cards are done being rendered
+        const cardsRendered = new CustomEvent("cardsRendered");
+
+        // Force a valid merge choice (mergeCards=false, mergeVariants=true is not allowed)
+        $("#input-merge-cards").change(function () {
+          if (!$(this).is(":checked")) {
+            $("#input-merge-variants").prop("checked", false);
+            $("#input-merge-variants").prop("disabled", true);
+          } else {
+            $("#input-merge-variants").prop("disabled", false);
+          }
+        });
+
+        // Add listeners to all cards to update the selected card preview
+        // Executes only when page is fully loaded
+        $(document).ready(function () {
+          // Manually refresh cards
+          $("#filter-form-submit").click();
+        })
+        /*]]>*/
+      </script>
     </div> <!-- !SECTION -->
 
     <!-- SECTION User Interface for write database-->
-     <div class="confirm-write-overlay" th:fragment="write-confirm">
-        <div class="write-confirm-box">
-            <button>Add to Inventory</button>
-        </div>
-     </div> <!-- !SECTION -->
-</body>
+    <div class="confirm-write-overlay" th:fragment="write-confirm">
+      <div class="write-confirm-box">
+        <button>Add to Inventory</button>
+      </div>
+    </div> <!-- !SECTION -->
+  </body>
 
 </html>

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <!-- Displays a searchable database of all known cards.
-    Mapped by the subdirectory "/card"-->
+  Mapped by the subdirectory "/card"-->
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
+  <head>
     <meta charset="utf-8" />
     <title>CE War - Card Display</title>
     <link rel="stylesheet" type="text/css" th:href="@{~/styles/style.css}">
     <link rel="icon" type="image/png" th:href="@{~/images/logo.png}">
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script th:src="@{~/scripts/search-card-collection.js}"></script>
-</head>
-<body>
+  </head>
+  <body>
     <div th:replace="~{fragments/header :: header}" />
 
     <div th:replace="~{fragments/card :: card-search(${cardDataArr})}"/>
-</body>
+  </body>
 </html>

@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <!-- Generates a card pack
-    Mapped by subdirectory "/pack" -->
+  Mapped by subdirectory "/pack" -->
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="utf-8" />
-        <title>CE War - Pack Generator</title>
-        <link rel="stylesheet" type="text/css" th:href="@{~/styles/style.css}">
-        <link rel="icon" type="image/png" th:href="@{~/images/logo.png}">
-        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    </head>
-    <body>
-        <!-- Replace this item with the container located at fragments/header with the tag "th:fragment="header"" -->
-        <div th:replace="~{fragments/header :: header}"/>
+  <head>
+    <meta charset="utf-8" />
+    <title>CE War - Pack Generator</title>
+    <link rel="stylesheet" type="text/css" th:href="@{~/styles/style.css}">
+    <link rel="icon" type="image/png" th:href="@{~/images/logo.png}">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  </head>
+  <body>
+    <!-- Replace this item with the container located at fragments/header with the tag "th:fragment="header"" -->
+    <div th:replace="~{fragments/header :: header}"/>
 
-        <main>
-            <form action="#" id="packTypeSelector" method="post" th:action="@{/pack}">
-                <label for:"packType">Pack Type:</label>
-                <select id="packType" name="packTypeDropdown">
-                    <option th:value="ASSORTED">Assorted</option>
-                    <option th:value="STAPLE">Staple</option>
-                    <option th:value="MATERIAL">Material</option>
-                    <option th:value="RARE">Rare</option>
-                </select>
-                <br>
-                <input id="submitButton" type="submit" th:value="Submit">
-            </form>
-            <br>
-            <div th:if="${error_points}" class="error-msg">Not enough points.</div>
-            <br>
-            <!-- Display pack output-->
-            <div id="card-results" style="--card-height: 400px">
-                <th:block th:each="card : ${packOutput}">
-                    <div th:replace="~{fragments/card :: card(${card})}"></div>
-            </th:block>
-            </div>
-        </main>
-    </body>
+    <main>
+      <form action="#" id="packTypeSelector" method="post" th:action="@{/pack}">
+        <label for:"packType">Pack Type:</label>
+        <select id="packType" name="packTypeDropdown">
+          <option th:value="ASSORTED">Assorted</option>
+          <option th:value="STAPLE">Staple</option>
+          <option th:value="MATERIAL">Material</option>
+          <option th:value="RARE">Rare</option>
+        </select>
+        <br>
+        <input id="submitButton" type="submit" th:value="Submit">
+      </form>
+      <br>
+      <div th:if="${error_points}" class="error-msg">Not enough points.</div>
+      <br>
+      <!-- Display pack output-->
+      <div id="card-results" style="--card-height: 400px">
+        <th:block th:each="card : ${packOutput}">
+          <div th:replace="~{fragments/card :: card(${card})}"></div>
+        </th:block>
+      </div>
+    </main>
+  </body>
 </html>

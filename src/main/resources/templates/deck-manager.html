@@ -2,55 +2,58 @@
 <!-- Deck Manager. Allows users to see their decks, edit them, and create new ones
     Mapped by "/account/deck" -->
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="utf-8" />
-        <title>Deck Editor</title>
-        <link rel="stylesheet" type="text/css" th:href="@{~/styles/style.css}">
-        <link rel="icon" type="image/png" th:href="@{~/images/logo.png}">
-        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    </head>
-    <body>
-        <!-- Replace this item with the container located at fragments/header with the tag "th:fragment="header"" -->
-        <div th:replace="~{fragments/header :: header}"/>
 
-        <!-- STUB for new deck functionality-->
-        <button id="new-deck">make new deck</button> 
+  <head>
+    <meta charset="utf-8" />
+    <title>Deck Editor</title>
+    <link rel="stylesheet" type="text/css" th:href="@{~/styles/style.css}">
+    <link rel="icon" type="image/png" th:href="@{~/images/logo.png}">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  </head>
 
-    </body>
-    <script th:inline="javascript">
-        // Needed for Thymeleaf to be able to run this code
-        /*<![CDATA[*/
-        var deckList = /*[[${deckList}]]*/ "";
-        const csrf_token = /*[[${_csrf.token}]]*/ "";
-        const csrf_header = /*[[${_csrf.headerName}]]*/ "";
+  <body>
+    <!-- Replace this item with the container located at fragments/header with the tag "th:fragment="header"" -->
+    <div th:replace="~{fragments/header :: header}" />
 
-        $("#new-deck").on("click", function (event) {
-            event.preventDefault();
-            newDeck();
-        })
+    <!-- STUB for new deck functionality-->
+    <button id="new-deck">make new deck</button>
 
-        // Send request to create a new blank deck, then redirect to it
-        async function newDeck() {
-            try {
-                const response = await fetch(`http://localhost:80/account/newdeck`, { // Pauses until fetch resolves
-                    method: "POST",
-                    credentials: "same-origin",
-                    headers: {
-                        "Content-Type": "application/json",
-                        [csrf_header]: csrf_token
-                    }
-                });
-                if (!response.ok) {
-                    throw new Error(`Response Status: ${response.status}`);
-                    return;
-                } else {
-                    const data = await response.json();
-                    window.location.href = `http://localhost:80/account/deck?id=${data}`;
-                }
-            } catch (error) {
-                console.error(error.message);
-            }
+  </body>
+  <script th:inline="javascript">
+    // Needed for Thymeleaf to be able to run this code
+    /*<![CDATA[*/
+    var deckList = /*[[${deckList}]]*/ "";
+    const csrf_token = /*[[${_csrf.token}]]*/ "";
+    const csrf_header = /*[[${_csrf.headerName}]]*/ "";
+
+    $("#new-deck").on("click", function (event) {
+      event.preventDefault();
+      newDeck();
+    })
+
+    // Send request to create a new blank deck, then redirect to it
+    async function newDeck() {
+      try {
+        const response = await fetch(`http://localhost:80/account/newdeck`, { // Pauses until fetch resolves
+          method: "POST",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+            [csrf_header]: csrf_token
+          }
+        });
+        if (!response.ok) {
+          throw new Error(`Response Status: ${response.status}`);
+          return;
+        } else {
+          const data = await response.json();
+          window.location.href = `http://localhost:80/account/deck?id=${data}`;
         }
-        /*]]>*/
-    </script>
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+    /*]]>*/
+  </script>
+
 </html>
