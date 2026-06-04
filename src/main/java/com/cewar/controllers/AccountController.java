@@ -97,7 +97,7 @@ public class AccountController {
             };
 
             model.addAttribute("deckList", decks.toArray());
-            return "deckManager";
+            return "deck-manager";
         } else {
             // If deck ID is provided, return the deck editor for that ID
             Collection<UserDeck> deckList = user.getDecks();
@@ -111,7 +111,7 @@ public class AccountController {
 
                     // Create new DeckDto and add it as an attribute
                     model.addAttribute("deckDto", makeDeckDto(deck));
-                    return "deckEditor";
+                    return "deck-editor";
                 }
             }
 

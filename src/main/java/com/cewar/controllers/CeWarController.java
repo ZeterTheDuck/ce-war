@@ -153,7 +153,7 @@ public class CeWarController {
      */
     @GetMapping("/pack")
     public String cardPack(Model model) {
-        return "cardPack";
+        return "card-pack";
     }
 
     /**
@@ -179,7 +179,7 @@ public class CeWarController {
             || !packType.equals(PackGenerator.Pack.RARE.toString()) && user.getInfo().getPoints() < 10) {
             // Add an attribute to tell the user that they don't have enough points and exit
             model.addAttribute("error_points", true);
-            return "cardPack";
+            return "card-pack";
         }
 
         // Collect generated cards, given POST request parameters
@@ -206,7 +206,7 @@ public class CeWarController {
             /* Adding cards failed to happen for some reason
                 Abort and return nothing. Nothing will be saved. */ 
             // TODO add feedback to User that the pack failed to generate
-            return "cardPack";
+            return "card-pack";
         }
 
         ArrayList<Card> output = new ArrayList<>();
@@ -217,7 +217,7 @@ public class CeWarController {
         // Add String representation of pack output to page attributes as packOutput
         model.addAttribute("packOutput", output.toArray());
 
-        return "cardPack";
+        return "card-pack";
     }
 
     /**
@@ -229,7 +229,7 @@ public class CeWarController {
     public String getWritePage(Model model) {
         FilteredCardCollection fcc = new FilteredCardCollection(cardService.getAll(), FilteredCardCollection.SortType.ARCHETYPE);
         model.addAttribute("cardDataArr", fcc.toArray());
-        return "writeDatabase";
+        return "write-database";
     }
 
     /**
